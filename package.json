@@ -1,0 +1,23 @@
+{
+  "name": "nodenote",
+  "version": "1.0.0",
+  "description": "Shopping list web app",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodenote"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anttus/NodeNote.git"
+  },
+  "author": "Anttu Suhonen & Mikael Kotkavuori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anttus/NodeNote/issues"
+  },
+  "homepage": "https://github.com/anttus/NodeNote#readme",
+  "dependencies": {
+    "depd": "^1.1.2",
+    "dependencies": "0.0.1"
+  }
+}
