@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var port = process.env.PORT || 8081;
 
-var routes = require('./src/routes');
+var routes = require('./routes/routes');
 routes(app);
 // var posts = require('./src/posts');
 // posts(app);
