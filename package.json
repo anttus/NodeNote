@@ -28,6 +28,7 @@
     "dependencies": "0.0.1",
     "destroy": "^1.0.4",
     "etag": "^1.8.1",
+    "express-basic-auth": "^1.1.5",
     "finalhandler": "^1.1.1",
     "fresh": "^0.5.2",
     "merge-descriptors": "^1.0.1",

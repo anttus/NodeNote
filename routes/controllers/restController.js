@@ -14,7 +14,6 @@ async function getPromise(query, res) {
 exports.all_lists_of_user = function(req, res, err) {
     let userId = req.query['ownerId'] || 'null';
     let query = "SELECT * FROM Lists WHERE User_id = '" + userId + "';";
-    console.log(query);
     getPromise(query, res).then(function(result) {
         if (result == null) res.send("Empty");
         else res.send(result);
@@ -25,7 +24,6 @@ exports.all_lists_of_user = function(req, res, err) {
 exports.list_by_id = function(req, res, err) {
     let listId = req.url.slice(11);
     let query = "SELECT * FROM Lists WHERE List_id = " + listId + ";";
-    console.log(query);
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
@@ -35,7 +33,6 @@ exports.list_by_id = function(req, res, err) {
 exports.create_list = function(req, res, err) {
     let listName = req.url.slice(11);
     let query = "INSERT INTO Lists (Owner_id, User_id, Name) VALUES ('" +  "TEST_USER_ID"  + "', '" +  "TEST_USER_ID"  + "', '" +  listName  + "');";
-    console.log(query);
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => res.send('ERROR: Handle this error better'));
@@ -45,7 +42,6 @@ exports.create_list = function(req, res, err) {
 exports.all_items_of_list = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
     let query = "SELECT * FROM Item WHERE List_id = " + listId + ";";
-    console.log(query);
     getPromise(query, res).then(function(result) {
         if (result == null) res.send("Empty");
         else res.send(result);
@@ -75,7 +71,6 @@ exports.add_item = function(req, res, err) {
     let itemName = req.query['name'] || 'null';
     let listId = req.query['listId'] || 'null';
     let query = "INSERT INTO Item (Name, List_id) VALUES ('" + itemName + "', " + listId + ");";
-    console.log(query);
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
@@ -87,7 +82,6 @@ exports.delete_item = function(req, res, err) {
     let itemId = req.query['itemId'] || 'null';
     let itemName = req.query['itemName'] || 'null';
     let query = "DELETE FROM Item WHERE List_id = " + listId + " AND Item_id = " + itemId + " AND Name = '" + itemName + "';";
-    console.log(query);
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
