@@ -1,6 +1,8 @@
 'use strict';
 const async = require('async');
 const pool = require('../../db/database');
+const path = require('path');
+const appDir = path.dirname(require.main.filename);
 
 // Returns a new promise that resolves the sql query results
 async function getPromise(query, res) {
@@ -9,6 +11,10 @@ async function getPromise(query, res) {
         resolve(result);
     }).catch((err) => res.send('ERROR: Handle this error better'));
 }
+
+exports.load_index = function(req, res, err) {
+    res.sendFile(appDir + "/public/index.html");
+};
 
 // GET /api/lists?ownerId=ownerId
 exports.all_lists_of_user = function(req, res, err) {

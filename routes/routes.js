@@ -2,6 +2,15 @@
 
 module.exports = function(app) {
     const controller = require('./controllers/restController');
+    // const basicAuth = require('express-basic-auth')
+
+    app.route('/')
+    .get(controller.load_index);
+
+    // NEED TO FIND SOLUTION TO ALLOW public folder
+    // app.use(basicAuth({
+    //     users: { 'admin': 'supersecret' }
+    // }));
 
     // /api/lists?ownerId=<OWNER_ID>
     app.route('/api/lists')
@@ -20,4 +29,5 @@ module.exports = function(app) {
     .get(controller.all_items_of_list)
     .put(controller.add_item)
     .delete(controller.delete_item);
+
 };

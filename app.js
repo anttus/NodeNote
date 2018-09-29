@@ -7,11 +7,6 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const port = process.env.PORT || 8081;
 
-const basicAuth = require('express-basic-auth')
-app.use(basicAuth({
-    users: { 'admin': 'supersecret' }
-}));
-
 const routes = require('./routes/routes');
 routes(app);
 
