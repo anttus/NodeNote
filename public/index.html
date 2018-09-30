@@ -1,19 +1,87 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="./dist/main.js"></script>
+    <meta charset="UTF-8">
     <title>NodeNote</title>
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.css"/>
+    <link rel="script" href="../node_modules/@fortawesome/fontawesome-free/js/all.js"/>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../node_modules/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
+
+    <!--Empty favicon-->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+</head>
 <body>
 
-    <div class="container" id="wholeContainer">
-        testaaa
+<!-- Login window -->
+<div id="modalLogin" class="modal">
+    <div class="modal-content animate">
+        <div class="loginRow">
+            <button id="btnLogInTab">KIRJAUDU</button>
+            <button id="btnSignUpTab">REKISTERÖIDY</button>
+        </div>
+        <h1 id="loginHeader">Tervetuloa Tiskijukkaan!</h1>
+
+        <!-- Sign up -->
+        <div id="signUpForm" style="display:none">
+            <label><b>Sähköposti  </b></label>
+            <div><input type="email" name="email" id="txtEmail_SU" placeholder="Syötä sähköposti" data-validation="email"
+                        data-validation-error-msg="Tarkista sähköpostiosoite"><br></div>
+            <label><b>Salasana  </b></label>
+            <div><input type="password" id="txtVerifyPassword" placeholder="Syötä salasana"
+                        name="pass_confirmation" data-validation="length" data-validation-length="min8"
+                        data-validation-error-msg="Salasanassa tulee olla vähintään 8 merkkiä"><br>
+
+                <label><b>Varmista salasana</b></label>
+                <input type="password" id="txtPassword_SU" name="pass" data-validation="confirmation" data-validation-error-msg="Syötä sama salasana uudelleen"
+                       placeholder="Syötä salasana uudelleen"><br></div>
+            <label><b>Käyttäjänimi </b></label>
+            <div><input type="text" id="txtUsername" name="user" placeholder="Syötä käyttäjänimi"
+                        data-validation="length alphanumeric" data-validation-length="min3"
+                        data-validation-error-msg="Käyttäjänimen tulee olla vähintään 3 merkkiä pitkä"><br></div>
+            <div class="text-danger">Saat rekisteröityessä varmistusviestin sähköpostiin. Kirjaudut sisään kun päivität sivun.</div>
+
+        </div>
+
+        <!-- Log in -->
+        <div id="loginForm">
+            <label><b>Sähköposti  </b></label>
+            <div><input type="email" name="email" id="txtEmail_SI" placeholder="Syötä sähköposti" data-validation="email"
+                        data-validation-error-msg="Tarkista sähköpostiosoite"><br></div>
+            <label><b>Salasana  </b></label>
+            <input type="password" id="txtPassword_SI" placeholder="Syötä salasana"><br>
+        </div>
+
+        <div id="buttonForm">
+            <button id="btnSignIn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Kirjaudu</button>
+            <button id="btnSignUp" style="display: none"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Rekisteröidy</button>
+            <button id="btnGoogle"><i class="fab fa-google" aria-hidden="true" style="font-size:22px;"></i> Google</button>
+        </div>
+
     </div>
+</div>
+
+<!-- Loading icon -->
+<div id="loading"></div>
+
+<div id="mainBody" style="display: none">
+    <h1>Kirjautuminen onnistui!</h1>
+    <button id="btnLogOut">Kirjaudu ulos</button>
+</div>
 
 </body>
+
+<script src="../src/fbase.js"></script>
+<script src="../src/login.js"></script>
+
+</html>

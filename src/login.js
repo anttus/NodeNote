@@ -12,17 +12,14 @@ const txtEmail_SU = document.getElementById('txtEmail_SU');
 const txtPassword_SU = document.getElementById('txtPassword_SU');
 const txtVerifyPassword = document.getElementById('txtVerifyPassword');
 const btnSignUp = document.getElementById('btnSignUp');
-const btnFbSignUp = document.getElementById('btnFbSignUp');
-const btnGSignUp = document.getElementById('btnGSignUp');
 
 //Sign in
 const txtEmail_SI = document.getElementById('txtEmail_SI');
 const txtPassword_SI = document.getElementById('txtPassword_SI');
-
 const btnSignIn = document.getElementById('btnSignIn');
-const btnGoogle = document.getElementById('btnGoogle');
-const btnFacebook = document.getElementById('btnFacebook');
 
+const btnGoogle = document.getElementById('btnGoogle');
+const btnLogOut = document.getElementById('btnLogOut');
 const mainBody = document.getElementById('mainBody');
 
 btnSignUpTab.addEventListener('click', e=> {
@@ -35,6 +32,8 @@ btnSignUpTab.addEventListener('click', e=> {
     txtEmail_SU.value = "";
     txtPassword_SU.value = "";
     txtVerifyPassword.value = "";
+    btnSignUp.style.display = 'block';
+    btnSignIn.style.display = 'none';
 });
 
 btnLogInTab.addEventListener('click', e => {
@@ -47,6 +46,9 @@ btnLogInTab.addEventListener('click', e => {
     txtEmail_SU.value = "";
     txtPassword_SU.value = "";
     txtVerifyPassword.value = "";
+    btnSignIn.style.display = 'block';
+    btnSignUp.style.display = 'none';
+
 });
 
 function displayLogin() {
@@ -59,6 +61,29 @@ function displayLogin() {
     txtEmail_SI.value = "";
     txtPassword_SI.value = "";
 }
+
+//Sign in
+btnSignIn.addEventListener('click', e => {
+    //Get email and pass
+    const email = txtEmail_SI.value;
+    const pass = txtPassword_SI.value;
+
+    //Sign in
+    let promise = auth.signInWithEmailAndPassword(email, pass).then(function(user) {
+        // user signed in
+
+    }).catch(function(error) {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+
+        if (errorCode === 'auth/wrong-password') {
+            alert('Väärä salasana.');
+        } else {
+            alert('Tarkista sähköpostiosoite.');
+        }
+        console.log(error);
+    });
+});
 
 btnSignUp.addEventListener('click', e => {
 
@@ -124,18 +149,16 @@ btnGoogle.addEventListener('click', e => {
 
 
 
-//Logout
-// btnLogout.addEventListener('click', e => {
-//     firebase.auth().signOut().then(function() {
-//         console.log('Signed Out');
-//         document.getElementById('task').innerHTML = "";
-//         document.getElementById('navbarTitle').innerHTML = "";
-//     }, function(error) {
-//         console.error('Sign Out Error', error);
-//     });
-//     modalLogin.style.display = 'block';
-//     mainBody.style.display = 'none';
-//     txtEmail_SI.value = "";
-//     // txtEmail.focus();
-//     txtPassword_SI.value = "";
-// });
+// Logout
+btnLogOut.addEventListener('click', e => {
+    firebase.auth().signOut().then(function() {
+        console.log('Signed Out');
+    }, function(error) {
+        console.error('Sign Out Error', error);
+    });
+    modalLogin.style.display = 'block';
+    mainBody.style.display = 'none';
+    txtEmail_SI.value = "";
+    // txtEmail.focus();
+    txtPassword_SI.value = "";
+});

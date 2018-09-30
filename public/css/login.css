@@ -27,7 +27,7 @@ input[type=text], input[type=password], input[type=email] {
     outline: none;
 }
 
-#loginForm, #signUpForm {
+#loginForm, #signUpForm, #buttonForm {
     width: 50%;
     margin-left: 25%;
     margin-bottom: 20px;
@@ -68,8 +68,6 @@ button:active {
 
 #btnGoogle, #btnGoogleSignUp {
     background-color: #ea4335;
-    width: 50%;
-    margin-left: 25%;
 }
 
 
