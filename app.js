@@ -1,17 +1,14 @@
-var fs = require('fs');
-var express = require('express');
-var app = express();
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var app = express();
-var port = process.env.PORT || 8081;
+const fs = require('fs');
+const express = require('express');
+const app = express();
+const path = require('path');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const port = process.env.PORT || 8081;
 
-var routes = require('./src/routes');
+const routes = require('./routes/routes');
 routes(app);
-// var posts = require('./src/posts');
-// posts(app);
 
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, "/public")));
