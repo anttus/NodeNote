@@ -1,3 +1,11 @@
+'use strict';
+
+$('#testBtn').click(function() {
+    console.log("asdfasdf");
+    getListsOfUser('TEST_USER_ID');
+
+});
+
 // var json;
 // var locationInfoIsEmpty = true;
 //

@@ -16,9 +16,9 @@ exports.load_index = function(req, res, err) {
     res.sendFile(appDir + "/public/index.html");
 };
 
-// GET /api/lists?ownerId=ownerId
+// GET /api/lists?userId=userId
 exports.all_lists_of_user = function(req, res, err) {
-    let userId = req.query['ownerId'] || 'null';
+    let userId = req.query['userId'] || 'null';
     let query = "SELECT * FROM Lists WHERE User_id = '" + userId + "';";
     getPromise(query, res).then(function(result) {
         if (result == null) res.send("Empty");
