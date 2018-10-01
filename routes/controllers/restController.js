@@ -106,7 +106,7 @@ exports.get_users = function(req, res, err) {
 exports.add_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let email = req.query['email'] || 'null';
-    let query = "INSERT INTO Users (User_id, email) VALUES ('" + userId + "', '" + email + "');";
+    let query = "INSERT INTO Users (User_id, email) SELECT '" + userId + "', '" + email + "' FROM Users WHERE NOT EXISTS(SELECT * FROM Users WHERE User_id='" + User_id +"');";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
@@ -120,3 +120,7 @@ exports.delete_user = function(req, res, err) {
         res.send(result);
     }).catch(err => console.log(err));
 };
+
+// exports.item_status = function(req, res, err) {
+//
+// };
