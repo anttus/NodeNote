@@ -111,6 +111,7 @@ function verifyUser() {
     let user = firebase.auth().currentUser;
 
     if(user.emailVerified) {
+
         return true;
     }
     else {
