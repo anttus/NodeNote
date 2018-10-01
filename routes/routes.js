@@ -30,7 +30,11 @@ module.exports = function(app) {
     .put(controller.add_item)
     .delete(controller.delete_item);
 
-    app.route('api/users')
+    // GET /api/users
+    // PUT /api/users?userId=<USER_ID>&email=<EMAIL>
+    // DELETE /api/users?userId=<USER_ID>
+    app.route('/api/users')
+    .get(controller.get_users)
     .put(controller.add_user)
     .delete(controller.delete_user);
 
