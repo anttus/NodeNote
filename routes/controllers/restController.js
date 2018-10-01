@@ -35,10 +35,11 @@ exports.list_by_id = function(req, res, err) {
     }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
 };
 
-// PUT /api/lists/:id
+// PUT /api/lists?userId=<USER_ID>&listName=<LIST_NAME>
 exports.create_list = function(req, res, err) {
-    let listName = req.url.slice(11);
-    let query = "INSERT INTO Lists (Owner_id, User_id, Name) VALUES ('" +  "TEST_USER_ID"  + "', '" +  "TEST_USER_ID"  + "', '" +  listName  + "');";
+    let listName = req.query['listName'] || 'null';
+    let userId = req.query['userId'] || 'null';
+    let query = "INSERT INTO Lists (User_id, Name) VALUES ('" + userId + "', '" +  listName  + "');";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => res.send('ERROR: Handle this error better'));

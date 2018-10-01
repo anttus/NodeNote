@@ -16,7 +16,9 @@ module.exports = function(app) {
     app.route('/api/lists')
     .get(controller.all_lists_of_user);
 
-    // /api/lists/<LIST_ID>
+    // GET /api/lists/<LIST_ID>
+    // PUT /api/lists?userId=<USER_ID>&listName=<LIST_NAME>
+    // DELETE /api/lists/<LIST_ID>
     app.route('/api/lists/:id')
     .get(controller.list_by_id)
     .put(controller.create_list)
