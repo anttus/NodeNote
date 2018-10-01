@@ -1,10 +1,16 @@
 'use strict';
+const basicAuth = require('express-basic-auth')
+
 
 module.exports = function(app) {
     const controller = require('./controllers/restController');
 
     app.route('/')
     .get(controller.load_index);
+
+    app.use(basicAuth({
+        users: { 'rest.api': 'supersecret123' }
+    }));
 
     // /api/lists?ownerId=<OWNER_ID>
     app.route('/api/lists')
