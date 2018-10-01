@@ -27,12 +27,12 @@ module.exports = function(app) {
     // GET /api/items?listId=<LIST_ID>
     // PUT /api/items?name=<ITEM_NAME>&list_id=<LIST_ID>
     // DELETE /api/items?listId=<LIST_ID>&itemId=<ITEM_ID>
-    // UPDATE /api/items?itemId=<ITEM_ID>&completed=<1/0>
+    // PATCH /api/items?itemId=<ITEM_ID>&completed=<1/0>
     app.route('/api/items')
     .get(controller.all_items_of_list)
     .put(controller.add_item)
-    .delete(controller.delete_item);
-    // .update(controller.item_status);
+    .delete(controller.delete_item)
+    .patch(controller.item_status);
 
     // GET /api/users
     // PUT /api/users?userId=<USER_ID>&email=<EMAIL>

@@ -22,7 +22,7 @@ function addUser(userId, email) {
         url: url,
         type: 'PUT',
         success: function(result) {
-            console.log("user added");
+            console.log("user " + userId + " added");
         }
     });
 }
@@ -33,7 +33,7 @@ function deleteUser(userId) {
         url: url,
         type: 'DELETE',
         success: function(result) {
-            console.log("user deleted");
+            console.log("user " + userId + " deleted");
         }
     });
 }
@@ -59,7 +59,7 @@ function addList(userId, listName) {
         url: url,
         type: 'PUT',
         success: function(result) {
-            console.log("list added");
+            console.log("list " + listName + " added");
         }
     });
 }
@@ -70,7 +70,7 @@ function deleteList(listId) {
         url: url,
         type: 'DELETE',
         success: function(result) {
-            console.log("list deleted");
+            console.log("list " + listId + " deleted");
         }
     });
 }
@@ -89,7 +89,7 @@ function addItem(listId, itemName) {
         url: url,
         type: 'PUT',
         success: function(result) {
-            console.log("item added");
+            console.log("item " + itemName + " added");
         }
     });
 }
@@ -100,7 +100,18 @@ function deleteItem(listId, itemId) {
         url: url,
         type: 'DELETE',
         success: function(result) {
-            console.log("item deleted");
+            console.log("item " + itemId + " deleted");
+        }
+    });
+}
+
+function setItemStatus(itemId, completed) {
+    let url = urlStart + '/api/items?itemId=' + itemId + '&completed=' + completed;
+    $.ajax({
+        url: url,
+        type: 'PATCH',
+        success: function(result) {
+            console.log("item status updated to " + completed);
         }
     });
 }

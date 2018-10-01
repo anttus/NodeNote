@@ -121,6 +121,12 @@ exports.delete_user = function(req, res, err) {
     }).catch(err => console.log(err));
 };
 
-// exports.item_status = function(req, res, err) {
-//
-// };
+// PATCH /api/items?itemId=<ITEM_ID>&completed=<1/0>
+exports.item_status = function(req, res, err) {
+    let itemId = req.query['itemId'] || 'null';
+    let completed = req.query['completed'] || 'null';
+    let query = "UPDATE Item SET Completed = " + completed + " WHERE Item_id = " + itemId + ";";
+    getPromise(query, res).then(function(result) {
+        res.send(result);
+    }).catch(err => console.log(err));
+};
