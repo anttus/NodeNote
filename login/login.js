@@ -111,7 +111,8 @@ function verifyUser() {
     let user = firebase.auth().currentUser;
 
     if(user.emailVerified) {
-
+        addUser(user.uid, user.email);
+        // addUser("abcdefg", "hijklmn");
         return true;
     }
     else {
