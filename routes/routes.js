@@ -30,4 +30,8 @@ module.exports = function(app) {
     .put(controller.add_item)
     .delete(controller.delete_item);
 
+    app.route('api/users')
+    .put(controller.add_user)
+    .delete(controller.delete_user);
+
 };
