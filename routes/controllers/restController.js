@@ -48,7 +48,7 @@ exports.create_list = function(req, res, err) {
 // GET /api/items?listId=listId
 exports.all_items_of_list = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
-    let query = "SELECT * FROM Item WHERE List_id = " + listId + ";";
+    let query = "SELECT * FROM Items WHERE List_id = " + listId + ";";
     getPromise(query, res).then(function(result) {
         if (result == null) res.send("Empty");
         else res.send(result);
@@ -65,7 +65,7 @@ exports.delete_list = function(req, res, err) {
         res.send(result);
         res.end();
     }).catch(err => console.log(err));
-    let query1 = "DELETE FROM Item WHERE List_id = " + listId + ";";
+    let query1 = "DELETE FROM Items WHERE List_id = " + listId + ";";
     getPromise(query1, res).then(function(result) {
         res.send(result);
         res.end();
@@ -77,7 +77,7 @@ exports.delete_list = function(req, res, err) {
 exports.add_item = function(req, res, err) {
     let itemName = req.query['name'] || 'null';
     let listId = req.query['listId'] || 'null';
-    let query = "INSERT INTO Item (Name, List_id) VALUES ('" + itemName + "', " + listId + ");";
+    let query = "INSERT INTO Items (Name, List_id) VALUES ('" + itemName + "', " + listId + ");";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
@@ -88,7 +88,7 @@ exports.delete_item = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
     let itemId = req.query['itemId'] || 'null';
     let itemName = req.query['itemName'] || 'null';
-    let query = "DELETE FROM Item WHERE List_id = " + listId + " AND Item_id = " + itemId + " AND Name = '" + itemName + "';";
+    let query = "DELETE FROM Items WHERE List_id = " + listId + " AND Item_id = " + itemId + " AND Name = '" + itemName + "';";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
@@ -125,7 +125,7 @@ exports.delete_user = function(req, res, err) {
 exports.item_status = function(req, res, err) {
     let itemId = req.query['itemId'] || 'null';
     let completed = req.query['completed'] || 'null';
-    let query = "UPDATE Item SET Completed = " + completed + " WHERE Item_id = " + itemId + ";";
+    let query = "UPDATE Items SET Completed = " + completed + " WHERE Item_id = " + itemId + ";";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));

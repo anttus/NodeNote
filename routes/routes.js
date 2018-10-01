@@ -12,22 +12,22 @@ module.exports = function(app) {
         users: { 'rest.api': 'supersecret123' }
     }));
 
-    // /api/lists?ownerId=<OWNER_ID>
+    // GET /api/lists?ownerId=OWNER_ID
+    // PUT /api/lists?userId=USER_ID&listName=LIST_NAME
     app.route('/api/lists')
-    .get(controller.all_lists_of_user);
+    .get(controller.all_lists_of_user)
+    .put(controller.create_list);
 
-    // GET /api/lists/<LIST_ID>
-    // PUT /api/lists?userId=<USER_ID>&listName=<LIST_NAME>
-    // DELETE /api/lists/<LIST_ID>
+    // GET /api/lists/LIST_ID
+    // DELETE /api/lists/LIST_ID
     app.route('/api/lists/:id')
     .get(controller.list_by_id)
-    .put(controller.create_list)
     .delete(controller.delete_list);
 
-    // GET /api/items?listId=<LIST_ID>
-    // PUT /api/items?name=<ITEM_NAME>&list_id=<LIST_ID>
-    // DELETE /api/items?listId=<LIST_ID>&itemId=<ITEM_ID>
-    // PATCH /api/items?itemId=<ITEM_ID>&completed=<1/0>
+    // GET /api/items?listId=LIST_ID
+    // PUT /api/items?name=ITEM_NAME&list_id=LIST_ID
+    // DELETE /api/items?listId=LIST_ID&itemId=ITEM_ID
+    // PATCH /api/items?itemId=ITEM_ID&completed=1/0
     app.route('/api/items')
     .get(controller.all_items_of_list)
     .put(controller.add_item)
@@ -35,8 +35,8 @@ module.exports = function(app) {
     .patch(controller.item_status);
 
     // GET /api/users
-    // PUT /api/users?userId=<USER_ID>&email=<EMAIL>
-    // DELETE /api/users?userId=<USER_ID>
+    // PUT /api/users?userId=USER_ID&email=EMAIL
+    // DELETE /api/users?userId=USER_ID
     app.route('/api/users')
     .get(controller.get_users)
     .put(controller.add_user)
