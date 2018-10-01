@@ -2,9 +2,29 @@
 
 $('#testBtn').click(function() {
     console.log("asdfasdf");
-    deleteUser('TEST_USER_ID2');
-
+    // deleteUser('TEST_USER_ID2');
+    addToToDo($('.add-todo').val());
+    $('.add-todo').val("");
 });
+
+$('.add-todo').keyup(function(event) {
+    if(event.keyCode === 13 ) {
+       addToToDo($('.add-todo').val());
+        $('.add-todo').val("");
+    }
+});
+
+function addToToDo(message) {
+    $('#sortable').append(
+        '<div class="checkbox">' +
+        '<label>' +
+        '<input type="checkbox" value="" />' + $('.add-todo').val() +
+        '</label>' +
+        '</div>'
+    );
+}
+
+
 
 // var json;
 // var locationInfoIsEmpty = true;
