@@ -2,7 +2,7 @@
 
 $('#testBtn').click(function() {
     console.log("asdfasdf");
-    getListsOfUser('TEST_USER_ID');
+    deleteUser('TEST_USER_ID2');
 
 });
 

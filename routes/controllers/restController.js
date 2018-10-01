@@ -105,7 +105,7 @@ exports.get_users = function(req, res, err) {
 exports.add_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let email = req.query['email'] || 'null';
-    let query = "INSERT INTO Users (User_id, email) VALUES ('" + userId + "', " + email + ");";
+    let query = "INSERT INTO Users (User_id, email) VALUES ('" + userId + "', '" + email + "');";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
@@ -113,7 +113,7 @@ exports.add_user = function(req, res, err) {
 
 // DELETE /api/users?userId=<USER_ID>
 exports.delete_user = function(req, res, err) {
-    let listId = req.query['userId'] || 'null';
+    let userId = req.query['userId'] || 'null';
     let query = "DELETE FROM Users WHERE User_id = '" + userId + "';";
     getPromise(query, res).then(function(result) {
         res.send(result);
