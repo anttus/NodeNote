@@ -106,7 +106,7 @@ exports.get_users = function(req, res, err) {
 exports.add_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let email = req.query['email'] || 'null';
-    let query = "INSERT INTO Users (User_id, email) SELECT '" + userId + "', '" + email + "' FROM Users WHERE NOT EXISTS(SELECT * FROM Users WHERE User_id='" + User_id +"');";
+    let query = "INSERT INTO Users (User_id, email) SELECT '" + userId + "', '" + email + "' FROM Users WHERE NOT EXISTS(SELECT * FROM Users WHERE User_id='" + userId +"');";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
