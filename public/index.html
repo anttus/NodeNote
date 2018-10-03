@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <title>NodeNote</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="css/style.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
     <script src="../scripts/jquery.validate.js"></script>
     <link rel="stylesheet" href="../scripts/css/all.css"/>
     <link rel="script" href="../node_modules/@fortawesome/fontawesome-free/js/all.js"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
     <!--Empty favicon-->
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
@@ -71,34 +73,46 @@
 <div id="loading"></div>
 
 <div id="mainBody" style="display: none">
-    <h1>Kirjautuminen onnistui!</h1>
-    <button id="btnLogOut">Kirjaudu ulos</button>
-    <button id="testBtn">Testaa</button>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="navbar">
+            <div class="navbar-header">
+                <a href="#">NodeNote</a>
+                <button id="btnMenu">|||</button>
+            </div>
+            <div id="menuItems" style="display: none">
+                <button id="menuListItem">List1</button>
+                <button id="menuListItem">List2</button>
+                <button id="menuListItem">List3</button>
+            </div>
+        </div>
+    </nav>
+    <!-- close navbar nav -->
 
-    <div class="container">
+    <div class="container lists">
         <div class="row">
             <div class="col-md-6">
                 <div class="todolist not-done">
                     <h1>Todos</h1>
                     <input type="text" class="form-control add-todo" placeholder="Add todo">
                     <hr>
-                    <ul id="sortable" class="list-unstyled">
+                    <ul id="sortable" class="list-unstyled checkbox">
                         <li class="ui-state-default">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="" />Take out the trash</label>
+                                    <input type="checkbox" value="todo"/>Take out the trash</label>
                             </div>
                         </li>
                         <li class="ui-state-default">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="" />Buy bread</label>
+                                    <input type="checkbox" value="todo" />Buy bread</label>
                             </div>
                         </li>
                         <li class="ui-state-default">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="" />Teach penguins to fly</label>
+                                    <input type="checkbox" value="todo" />Teach penguins to fly</label>
                             </div>
                         </li>
                     </ul>

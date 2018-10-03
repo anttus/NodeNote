@@ -19,7 +19,7 @@ const txtPassword_SI = document.getElementById('txtPassword_SI');
 const btnSignIn = document.getElementById('btnSignIn');
 
 const btnGoogle = document.getElementById('btnGoogle');
-const btnLogOut = document.getElementById('btnLogOut');
+const btnLogout = document.getElementById('btnLogout');
 const mainBody = document.getElementById('mainBody');
 
 btnSignUpTab.addEventListener('click', e=> {
@@ -152,7 +152,7 @@ btnGoogle.addEventListener('click', e => {
 
 
 // Logout
-btnLogOut.addEventListener('click', e => {
+btnLogout.addEventListener('click', e => {
     firebase.auth().signOut().then(function() {
         console.log('Signed Out');
     }, function(error) {

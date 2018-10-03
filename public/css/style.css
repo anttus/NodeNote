@@ -1,10 +1,130 @@
-.container {
-    border: 1px solid black;
-    padding: 25px;
-}
+/*.container {*/
+    /*border: 1px solid black;*/
+    /*padding: 25px;*/
+/*}*/
 .btn-space {
     margin-right: 25px;
 }
 body {
     background-color: #f7f7f7;
 }
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 4em;
+    margin-bottom: 0;
+    border-radius: 0;
+    background-color: #333333;
+}
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+    margin: 0;
+}
+#navbar {
+    margin-bottom: 0;
+}
+.navbar button {
+    width: 4em;
+    height: 4em;
+}
+.navbar:hover a, .navbar a, .navbar:link a, .navbar:visited a {
+    text-decoration: none;
+    color: #cccccc;
+}
+.lists button {
+    width: 1em;
+    height: 1em;
+    float: right;
+}
+.ui-state-default {
+    height: 3em;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+#btnMenu {
+    position:fixed;
+    top: 0px;
+    right: 0px;
+}
+#navbarCollapsed {
+    padding: 20px;
+    border-radius: 0;
+    width: auto;
+}
+
+.navbar-collapse.in {
+    overflow-y: hidden;
+}
+.navbar-collapse {
+    width: 10em;
+}
+#menuItems {
+    position: fixed;
+    right: 0px;
+    top: 4em;
+    background-color: #333333;
+    height: 100%;
+    color: #cccccc;
+    z-index: 100;
+    width: 30%;
+    padding: 10px;
+}
+#menuItems button {
+    width: 100%;
+    text-align: left;
+}
+
+.sidenav {
+    background-color: #f1f1f1;
+    background-color: transparent;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+    #navbarTitle {
+        font-size: 18px;
+    }
+
+    .sidenav {
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    #navbar-nav {
+        margin: 0;
+        margin-top: 10px;
+    }
+
+    .rightCol {
+        margin-top: 0;
+        padding-top: 0;
+        display: inline-block;
+        padding-left: 0;
+    }
+}
+
+
+@media (min-width: 767px) {
+    #navbarTitle {
+        font-size: 25px;
+    }
+
+    .navbarButton {
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+        text-align: center;
+        margin: 10px;
+        padding: 13px;
+        border: none;
+        border-radius: 0;
+        float: right;
+        width: auto;
+    }
+}
+
+.navbarButton:focus {
+    outline: none;
+    border: none;
+}
+
