@@ -38,10 +38,6 @@ $('.todolist').on('change', '#sortable li input[type="checkbox"]', function() {
     }
 });
 
-function getUserId() {
-  return firebase.auth.currentUser.uid;
-}
-
 //delete done task from "already done"
 $('.todolist').on('click', '.remove-item', function() {
     removeItem(this);
@@ -60,8 +56,6 @@ $('#btnCloseAddList').click(event => {
 $('#btnAddList').click(event => {
     let listName = $('#txtListName').val();
     let userId = getUserId();
-    console.log(listName);
-    console.log(userId);
     $('txtListName').validate();
     addList(userId, listName);
 });

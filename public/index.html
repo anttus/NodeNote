@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>NodeNote</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="css/login.css" />
     <link rel="stylesheet" href="css/style.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-auth.js"></script>
     <script src="../scripts/jquery.validate.js"></script>
-    <link rel="stylesheet" href="../scripts/css/all.css"/>
-    <link rel="script" href="../node_modules/@fortawesome/fontawesome-free/js/all.js"/>
+    <link rel="stylesheet" href="../scripts/css/all.css" />
+    <link rel="script" href="../node_modules/@fortawesome/fontawesome-free/js/all.js" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
@@ -19,135 +20,129 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 </head>
+
 <body>
 
-<!-- Login window -->
-<div id="modalLogin" class="modal">
-    <div class="modal-content animate">
-        <div class="loginRow">
-            <button id="btnLogInTab">KIRJAUDU</button>
-            <button id="btnSignUpTab">REKISTERÖIDY</button>
+    <!-- Login window -->
+    <div id="modalLogin" class="modal">
+        <div class="modal-content animate">
+            <div class="loginRow">
+                <button id="btnLogInTab">KIRJAUDU</button>
+                <button id="btnSignUpTab">REKISTERÖIDY</button>
+            </div>
+            <h1 id="loginHeader">Tervetuloa NodeNoteen!</h1>
+
+            <!-- Sign up -->
+            <div id="signUpForm" style="display:none">
+                <label><b>Sähköposti </b></label>
+                <div><input type="email" name="email" id="txtEmail_SU" placeholder="Syötä sähköposti" data-validation="email" data-validation-error-msg="Tarkista sähköpostiosoite"><br></div>
+                <label><b>Salasana </b></label>
+                <div><input type="password" id="txtVerifyPassword" placeholder="Syötä salasana" name="pass_confirmation" data-validation="length" data-validation-length="min8" data-validation-error-msg="Salasanassa tulee olla vähintään 8 merkkiä"><br>
+
+                    <label><b>Varmista salasana</b></label>
+                    <input type="password" id="txtPassword_SU" name="pass" data-validation="confirmation" data-validation-error-msg="Syötä sama salasana uudelleen" placeholder="Syötä salasana uudelleen"><br></div>
+                <label><b>Käyttäjänimi </b></label>
+                <div><input type="text" id="txtUsername" name="user" placeholder="Syötä käyttäjänimi" data-validation="length alphanumeric" data-validation-length="min3" data-validation-error-msg="Käyttäjänimen tulee olla vähintään 3 merkkiä pitkä"><br></div>
+                <div class="text-danger">Saat rekisteröityessä varmistusviestin sähköpostiin. Kirjaudut sisään kun päivität sivun.</div>
+
+            </div>
+
+            <!-- Log in -->
+            <div id="loginForm">
+                <label><b>Sähköposti </b></label>
+                <div><input type="email" name="email" id="txtEmail_SI" placeholder="Syötä sähköposti" data-validation="email" data-validation-error-msg="Tarkista sähköpostiosoite"><br></div>
+                <label><b>Salasana </b></label>
+                <input type="password" id="txtPassword_SI" placeholder="Syötä salasana"><br>
+            </div>
+
+            <div id="buttonForm">
+                <button id="btnSignIn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Kirjaudu</button>
+                <button id="btnSignUp" style="display: none"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Rekisteröidy</button>
+                <button id="btnGoogle"><i class="fab fa-google" aria-hidden="true" style="font-size:22px;"></i> Google</button>
+            </div>
+
         </div>
-        <h1 id="loginHeader">Tervetuloa NodeNoteen!</h1>
-
-        <!-- Sign up -->
-        <div id="signUpForm" style="display:none">
-            <label><b>Sähköposti  </b></label>
-            <div><input type="email" name="email" id="txtEmail_SU" placeholder="Syötä sähköposti" data-validation="email"
-                        data-validation-error-msg="Tarkista sähköpostiosoite"><br></div>
-            <label><b>Salasana  </b></label>
-            <div><input type="password" id="txtVerifyPassword" placeholder="Syötä salasana"
-                        name="pass_confirmation" data-validation="length" data-validation-length="min8"
-                        data-validation-error-msg="Salasanassa tulee olla vähintään 8 merkkiä"><br>
-
-                <label><b>Varmista salasana</b></label>
-                <input type="password" id="txtPassword_SU" name="pass" data-validation="confirmation" data-validation-error-msg="Syötä sama salasana uudelleen"
-                       placeholder="Syötä salasana uudelleen"><br></div>
-            <label><b>Käyttäjänimi </b></label>
-            <div><input type="text" id="txtUsername" name="user" placeholder="Syötä käyttäjänimi"
-                        data-validation="length alphanumeric" data-validation-length="min3"
-                        data-validation-error-msg="Käyttäjänimen tulee olla vähintään 3 merkkiä pitkä"><br></div>
-            <div class="text-danger">Saat rekisteröityessä varmistusviestin sähköpostiin. Kirjaudut sisään kun päivität sivun.</div>
-
-        </div>
-
-        <!-- Log in -->
-        <div id="loginForm">
-            <label><b>Sähköposti  </b></label>
-            <div><input type="email" name="email" id="txtEmail_SI" placeholder="Syötä sähköposti" data-validation="email"
-                        data-validation-error-msg="Tarkista sähköpostiosoite"><br></div>
-            <label><b>Salasana  </b></label>
-            <input type="password" id="txtPassword_SI" placeholder="Syötä salasana"><br>
-        </div>
-
-        <div id="buttonForm">
-            <button id="btnSignIn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Kirjaudu</button>
-            <button id="btnSignUp" style="display: none"><i class="fa fa-sign-in-alt" aria-hidden="true"></i> Rekisteröidy</button>
-            <button id="btnGoogle"><i class="fab fa-google" aria-hidden="true" style="font-size:22px;"></i> Google</button>
-        </div>
-
     </div>
-</div>
 
-<!-- Loading icon -->
-<div id="loading"></div>
+    <!-- Loading icon -->
+    <div id="loading"></div>
 
-<div id="mainBody" style="display: none">
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="navbar">
-            <div class="navbar-header">
-                <a href="#">NodeNote</a>
-                <button id="btnMenu">|||</button>
+    <div id="mainBody" style="display: none">
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="navbar">
+                <div class="navbar-header">
+                    <a href="#">NodeNote</a>
+                    <button id="btnMenu">|||</button>
+
+                </div>
+                <div id="menuItems" style="display: none">
+                    <button id="menuListItem">List1</button>
+                    <button id="menuListItem">List2</button>
+                    <button id="menuListItem">List3</button>
+                </div>
+                <div id="accountItems">
+                    <button id="btnNewList">Lisää lista</button>
+                    <button id="btnLogout">Kirjaudu ulos</button>
+                </div>
 
             </div>
-            <div id="menuItems" style="display: none">
-                <button id="menuListItem">List1</button>
-                <button id="menuListItem">List2</button>
-                <button id="menuListItem">List3</button>
-            </div>
-            <div id="accountItems">
-                <button id="btnAddList">Lisää lista</button>
-                <button id="btnLogout">Kirjaudu ulos</button>
-            </div>
+        </nav>
+        <!-- close navbar nav -->
 
-        </div>
-    </nav>
-    <!-- close navbar nav -->
+        <div class="container lists">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="todolist not-done">
+                        <h1>Todos</h1>
+                        <input type="text" class="form-control add-todo" placeholder="Add todo">
+                        <hr>
+                        <ul id="sortable" class="list-unstyled checkbox">
+                            <li class="ui-state-default">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="todo" />Take out the trash</label>
+                                </div>
+                            </li>
+                            <li class="ui-state-default">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="todo" />Buy bread</label>
+                                </div>
+                            </li>
+                            <li class="ui-state-default">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="todo" />Teach penguins to fly</label>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="todo-footer">
+                            <strong><span class="count-todos"></span></strong> Items Left
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="todolist">
+                        <h1>Already Done</h1>
+                        <ul id="done-items" class="list-unstyled">
+                            <li>Some item <button class="remove-item btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button></li>
 
-    <div class="container lists">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="todolist not-done">
-                    <h1>Todos</h1>
-                    <input type="text" class="form-control add-todo" placeholder="Add todo">
-                    <hr>
-                    <ul id="sortable" class="list-unstyled checkbox">
-                        <li class="ui-state-default">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="todo"/>Take out the trash</label>
-                            </div>
-                        </li>
-                        <li class="ui-state-default">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="todo" />Buy bread</label>
-                            </div>
-                        </li>
-                        <li class="ui-state-default">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" value="todo" />Teach penguins to fly</label>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="todo-footer">
-                        <strong><span class="count-todos"></span></strong> Items Left
+                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="todolist">
-                    <h1>Already Done</h1>
-                    <ul id="done-items" class="list-unstyled">
-                        <li>Some item <button class="remove-item btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button></li>
-
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
-</div>
 
-<div id="addListMenu" style="display: none">
-    <h1>Lisää lista</h1>
-    <form>
-        <input type="text" id="txtListName" placeholder="Listan nimi">
-        <button type="submit"> Lisää lista</button>
-    </form>
-    <button id="btnCloseAddList">Sulje</button>
-</div>
+    <div id="addListMenu" style="display: none">
+        <h1>Lisää lista</h1>
+        <form>
+            <input type="text" id="txtListName" placeholder="Listan nimi">
+            <button id="btnAddList" type="submit">Lisää lista</button>
+        </form>
+        <button id="btnCloseAddList">Sulje</button>
+    </div>
 
 </body>
 
