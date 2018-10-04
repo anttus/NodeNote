@@ -64,6 +64,17 @@ function addList(userId, listName) {
     });
 }
 
+function editListName(listId, newName) {
+    let url = urlStart + '/api/lists?listId=' + listId + '&newName=' + newName;
+    $.ajax({
+        url: url,
+        type: 'PATCH',
+        success: function(result) {
+            console.log("List name changed to " + newName);
+        }
+    });
+}
+
 function deleteList(listId) {
     let url = urlStart + 'api/lists/' + listId;
     $.ajax({
@@ -90,6 +101,17 @@ function addItem(listId, itemName) {
         type: 'PUT',
         success: function(result) {
             console.log("item " + itemName + " added");
+        }
+    });
+}
+
+function editItemName(itemId, newName) {
+    let url = urlStart + '/api/items?itemId=' + itemId + '&newName=' + newName;
+    $.ajax({
+        url: url,
+        type: 'PATCH',
+        success: function(result) {
+            console.log("item name changed to " + newName);
         }
     });
 }
