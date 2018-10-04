@@ -124,6 +124,7 @@ function loadItems(listId) {
 
 function setUserLists(userId) {
     let success = function(data) {
+        sideMenuReload();
         for (var i = 0; i < data.length; i++) {
             let listName = data[i]['Name'];
             let listId = data[i]['List_id'];
@@ -169,7 +170,7 @@ function addShareButtonBehavior(listId) {
             closeShareListMenu();
         });
     });
-    //Not too sure about this one...
+
     $('#txtShareToEmail').keyup(function(event) {
         if(event.keyCode === 13) {
             console.log("Todo: share listId:" + listId + " to " + email);
@@ -178,12 +179,13 @@ function addShareButtonBehavior(listId) {
     });
 }
 
-function addRemoveButtonBehavior() {
+function addRemoveButtonBehavior(listId) {
     $('#btnRemoveList' + listId).click(function() {
-        // deleteList(listId);
-        // $('#menuItems').remove('#listItem' + listId);
+        deleteList(listId);
+        $('#menuItems').remove('#listItem' + listId);
         // loadItems(listId);
         // instead of loadItems, call setUserLists?
+        setUserLists(getUserId());
     });
 }
 

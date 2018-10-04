@@ -41,6 +41,9 @@ function generateItem(name, itemId, status) {
         deleteItem($('#listHeader').attr('class'), itemId, name);
     });
 }
+function sideMenuReload() {
+    $('#menuItems').empty();
+}
 
 function listReload() {
     loadItems($('#listHeader').attr('class'));
@@ -85,6 +88,7 @@ function addNewList() {
     let userId = getUserId();
     $('txtListName').validate();
     addList(userId, listName);
+    setUserLists(getUserId());
     closeAddList();
 }
 
