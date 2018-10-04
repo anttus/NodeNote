@@ -103,7 +103,7 @@ exports.item_name_change = function(req, res, err) {
     }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
 };
 
-// DELETE /api/items?listId=<LIST_ID>&itemId=<ITEM_ID>&itemName=<ITEM_NAME>
+// DELETE /api/items?listId=LIST_ID&itemId=ITEM_ID&itemName=ITEM_NAME
 exports.delete_item = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
     let itemId = req.query['itemId'] || 'null';
@@ -141,11 +141,11 @@ exports.delete_user = function(req, res, err) {
     }).catch(err => console.log(err));
 };
 
-// PATCH /api/items?itemId=<ITEM_ID>&completed=<1/0>
+// PATCH /api/items/status?itemId=<ITEM_ID>&completed=<1/0>
 exports.item_status = function(req, res, err) {
     let itemId = req.query['itemId'] || 'null';
     let completed = req.query['completed'] || 'null';
-    let query = "UPDATE Items SET Completed = " + completed + " WHERE Item_id = " + itemId + ";";
+    let query = "UPDATE Items SET Completed = '" + completed + "' WHERE Item_id = '" + itemId + "';";
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));

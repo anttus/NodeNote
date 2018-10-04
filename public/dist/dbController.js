@@ -65,7 +65,7 @@ function addList(userId, listName) {
 }
 
 function editListName(listId, newName) {
-    let url = urlStart + '/api/lists?listId=' + listId + '&newName=' + newName;
+    let url = urlStart + 'api/lists?listId=' + listId + '&newName=' + newName;
     $.ajax({
         url: url,
         type: 'PATCH',
@@ -107,7 +107,7 @@ function addItem(listId, itemName) {
 }
 
 function editItemName(itemId, newName) {
-    let url = urlStart + '/api/items?itemId=' + itemId + '&newName=' + newName;
+    let url = urlStart + 'api/items?itemId=' + itemId + '&newName=' + newName;
     $.ajax({
         url: url,
         type: 'PATCH',
@@ -117,24 +117,26 @@ function editItemName(itemId, newName) {
     });
 }
 
-function deleteItem(listId, itemId) {
-    let url = urlStart + '/api/items?listId=' + listId + '&itemId=' + itemId;
+function deleteItem(listId, itemId, itemName) {
+    let url = urlStart + 'api/items?listId=' + listId + '&itemId=' + itemId + '&itemName=' + itemName;
     $.ajax({
         url: url,
         type: 'DELETE',
         success: function(result) {
             console.log("item " + itemId + " deleted");
+            listReload();
         }
     });
 }
 
 function setItemStatus(itemId, completed) {
-    let url = urlStart + '/api/items?itemId=' + itemId + '&completed=' + completed;
+    let url = urlStart + 'api/items/status?itemId=' + itemId + '&completed=' + completed;
     $.ajax({
         url: url,
         type: 'PATCH',
         success: function(result) {
-            console.log("item status updated to " + completed);
+            listReload();
+            console.log("item " + itemId + " status updated to " + completed);
         }
     });
 }

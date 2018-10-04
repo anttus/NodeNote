@@ -112,12 +112,11 @@ function getUserId() {
 }
 
 function loadItems(listId) {
-  $('#not-done-items').empty();
-  $('#done-items').empty();
+    $('#not-done-items').empty();
+    $('#done-items').empty();
     let success = function(data) {
         for (var i = 0; i < data.length; i++) {
-            if (data[i]['Completed'] === 0) addToToDo(data[i]['Name'], data[i]['Item_id']);
-            else $('#done-items').append(data[i]['Name'], data[i]['Item_id']);
+            generateItem(data[i]['Name'], data[i]['Item_id'], data[i]['Completed']);
         }
     }
     getItems(listId, success);
