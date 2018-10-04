@@ -126,7 +126,7 @@ function setUserLists(userId) {
         for (var i = 0; i < data.length; i++) {
             let listName = data[i]['Name'];
             let listId = data[i]['List_id'];
-            $('#menuItems').append('<button id="menuListItem' + listId + '">' + listName + '</button>');
+            $('#menuItems').append('<div><button style="width:50%" id="menuListItem' + listId + '">' + listName + '</button><button style="width:50%" class="fa fa-trash-alt"></button></div>');
             $('#menuListItem' + listId).click(function() {
                 showHideMenu();
                 $('#listHeader').html(listName);

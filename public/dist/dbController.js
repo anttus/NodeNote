@@ -46,12 +46,12 @@ function getListsOfUser(userId, success) {
     });
 }
 
-function getListById(listId) {
-    let url = urlStart + 'api/lists/' + listId;
-    $.get(url, function(data) {
-        return data;
-    });
-}
+// function getListById(listId) {
+//     let url = urlStart + 'api/lists/' + listId;
+//     $.get(url, function(data) {
+//         return data;
+//     });
+// }
 
 function addList(userId, listName) {
     let url = urlStart + 'api/lists?userId=' + userId + '&listName=' + listName;

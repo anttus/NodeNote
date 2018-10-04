@@ -68,7 +68,7 @@ body {
     height: 100%;
     color: #cccccc;
     z-index: 100;
-    width: 30%;
+    width: 35%;
     padding: 10px;
 }
 #menuItems button {
@@ -136,4 +136,3 @@ body {
     outline: none;
     border: none;
 }
-
