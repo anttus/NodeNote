@@ -21,22 +21,20 @@ function generateItem(name, itemId, status) {
     + itemId
     + '">'
     + '<div class="checkbox">'
-    + '<label>'
-    + '<input id="checkBox' + itemId + '" type="checkbox" value="todo" />'
+    + '<button class="far fa-square" id="checkBox' + itemId + '" value="todo"></button>'
+    + '<label id="itemName">'
     + name
     + '</label>'
-    + '<button class="fa fa-trash pull-right  remove-item'+ itemId +'"></button>'
+    + '<button id ="remove" class="fa fa-trash remove-item'+ itemId +'"></button>'
     + '</div>'
     + '</li>';
 
     if (status === 0) $('#not-done-items').prepend(item);
     else $('#done-items').prepend(item);
 
-    $('#checkBox' + itemId).on('change', function() {
-        if ($(this).prop('checked')) {
+    $('#checkBox' + itemId).click(function() {
             console.log(itemId);
             setItemStatus(itemId, status === 0 ? 1 : 0);
-        }
     });
 
     $('.remove-item' +itemId).click(function(){
