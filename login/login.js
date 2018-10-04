@@ -107,6 +107,10 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
+function getUserId() {
+  return firebase.auth.currentUser.uid;
+}
+
 function verifyUser() {
     let user = firebase.auth().currentUser;
 

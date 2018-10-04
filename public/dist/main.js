@@ -8,39 +8,29 @@ $('#testBtn').click(function() {
 });
 
 $('.add-todo').keyup(function(event) {
-    if(event.keyCode === 13 ) {
-       addToToDo($('.add-todo').val());
+    if (event.keyCode === 13) {
+        addToToDo($('.add-todo').val());
         $('.add-todo').val("");
     }
 });
 
 function addToToDo(message) {
-    $('#sortable').append(
-        '<li class="ui-state-default">' +
-        '<div class="checkbox">' +
-        '<label>' +
-        '<input type="checkbox" value="todo" />' + $('.add-todo').val() +
-        '</label>' +
-        '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' +
-        '</div>' +
-        '</li>'
-    );
+    $('#sortable').append('<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + $('.add-todo').val() + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>');
 }
 
 $('#btnMenu').click(event => {
     // console.log($('#menuItems').css('display') === 'block');
-    if($('#menuItems').css('display') === 'block') {
+    if ($('#menuItems').css('display') === 'block') {
         $('#menuItems').hide();
-        $('.lists').css({opacity:1});
-    }
-    else {
+        $('.lists').css({opacity: 1});
+    } else {
         $('#menuItems').show();
-        $('.lists').css({opacity:0.5});
+        $('.lists').css({opacity: 0.5});
     }
 });
 
-$('.todolist').on('change','#sortable li input[type="checkbox"]',function(){
-    if($(this).prop('checked')){
+$('.todolist').on('change', '#sortable li input[type="checkbox"]', function() {
+    if ($(this).prop('checked')) {
         var doneItem = $(this).parent().parent().find('label').text();
         $(this).parent().parent().parent().addClass('remove');
         done(doneItem);
@@ -48,12 +38,16 @@ $('.todolist').on('change','#sortable li input[type="checkbox"]',function(){
     }
 });
 
+function getUserId() {
+  return firebase.auth.currentUser.uid;
+}
+
 //delete done task from "already done"
-$('.todolist').on('click','.remove-item',function(){
+$('.todolist').on('click', '.remove-item', function() {
     removeItem(this);
 });
 
-$('#addListMenu').click(event => {
+$('#btnNewList').click(event => {
     $('#mainBody').hide();
     $('#addListMenu').show();
 });
@@ -63,47 +57,29 @@ $('#btnCloseAddList').click(event => {
     $('#mainBody').show();
 });
 
-function done(doneItem){
+$('#btnAddList').click(event => {
+    let listName = $('#txtListName').val();
+    let userId = getUserId();
+    console.log(listName);
+    console.log(userId);
+    $('txtListName').validate();
+    addList(userId, listName);
+});
+
+function done(doneItem) {
     let done = doneItem;
-    let markup = '<li>'+ done + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
+    let markup = '<li>' + done + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
     $('#done-items').append(markup);
     $('.remove').remove();
 }
 //remove done task from list
-function removeItem(element){
+function removeItem(element) {
     $(element).parent().remove();
 }
 
 $('#menuListItem').click(event => {
     $('#sortable').empty();
-    $('#sortable').append(
-        '<ul id="sortable" class="list-unstyled checkbox">' +
-        '<li class="ui-state-default">' +
-        '<div class="checkbox">' +
-        '<label>' +
-        '<input type="checkbox" value="todo" />' + 'testi1' +
-        '</label>' +
-        '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' +
-        '</div>' +
-        '</li>'+
-        '<li class="ui-state-default">' +
-        '<div class="checkbox">' +
-        '<label>' +
-        '<input type="checkbox" value="todo" />' + 'testi2' +
-        '</label>' +
-        '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' +
-        '</div>' +
-        '</li>'+
-        '<li class="ui-state-default">' +
-        '<div class="checkbox">' +
-        '<label>' +
-        '<input type="checkbox" value="todo" />' + 'testi3' +
-        '</label>' +
-        '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' +
-        '</div>' +
-        '</li>'+
-        '</ul>'
-    );
+    $('#sortable').append('<ul id="sortable" class="list-unstyled checkbox">' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi1' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi2' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi3' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '</ul>');
 });
 
 // var json;
@@ -123,14 +99,14 @@ $('#menuListItem').click(event => {
 // function createCORSRequest(method, url) {
 //     var xhr = new XMLHttpRequest();
 //     if ("withCredentials" in xhr) {
-//         // XHR for Chrome/Firefox/Opera/Safari.
+//          XHR for Chrome/Firefox/Opera/Safari.
 //         xhr.open(method, url, true);
 //     } else if (typeof XDomainRequest != "undefined") {
-//         // XDomainRequest for IE.
+//          XDomainRequest for IE.
 //         xhr = new XDomainRequest();
 //         xhr.open(method, url);
 //     } else {
-//         // CORS not supported.
+//          CORS not supported.
 //         xhr = null;
 //     }
 //     return xhr;
@@ -140,18 +116,18 @@ $('#menuListItem').click(event => {
 //     var startdate = document.getElementById("startingDate").value;
 //     var enddate = document.getElementById("endingDate").value;
 //     var url = "http://localhost:8081/api/events?start=" + startdate + "&end=" + enddate;
-//     // var url = "http://anttus.ddns.net:8081/api/events?start=" + startdate + "&end=" + enddate;
+//      var url = "http://anttus.ddns.net:8081/api/events?start=" + startdate + "&end=" + enddate;
 //
-//     if (startdate.length == 0) { // fix this and support empty field
+//     if (startdate.length == 0) {  fix this and support empty field
 //         return;
 //     } else {
 //         var xmlhttp = createCORSRequest("GET", url);
 //         xmlhttp.onreadystatechange = function() {
 //             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-//                 // console.log(xmlhttp.responseText);
+//                  console.log(xmlhttp.responseText);
 //                 json = JSON.parse(xmlhttp.responseText);
 //                 var length = json.resultEventArr.length;
-//                 // console.log("Length: " + length);
+//                  console.log("Length: " + length);
 //                 if (length > 0) {
 //                     showEvents(json);
 //                 } else {
@@ -187,9 +163,9 @@ $('#menuListItem').click(event => {
 //         eventLocation = locations[i][0];
 //         eventDate = dates[i][0];
 //
-//         // create a form group div
+//          create a form group div
 //         unOrdered = document.createElement("ul");
-//         unOrdered.setAttribute("class", "del"); // mark all these dynamically created elements to be "deleted"
+//         unOrdered.setAttribute("class", "del");  mark all these dynamically created elements to be "deleted"
 //         divElement.appendChild(unOrdered);
 //
 //         listElement = document.createElement("li");
