@@ -22,7 +22,7 @@ const btnGoogle = document.getElementById('btnGoogle');
 const btnLogout = document.getElementById('btnLogout');
 const mainBody = document.getElementById('mainBody');
 
-btnSignUpTab.addEventListener('click', e=> {
+btnSignUpTab.addEventListener('click', e => {
     loginForm.style.display = 'none';
     signUpForm.style.display = 'block';
     btnLogInTab.style.background = '#cccccc';
@@ -102,38 +102,51 @@ firebase.auth().onAuthStateChanged(function(user) {
         modalLogin.style.display = 'none';
         mainBody.style.display = 'block';
         setUserLists(user.uid);
-    }
-    else {
+    } else {
         displayLogin();
     }
 });
 
 function getUserId() {
-  return firebase.auth().currentUser.uid;
+    return firebase.auth().currentUser.uid;
+}
+
+function loadItems(listId) {
+    let success = function(data) {
+        for (var i = 0; i < data.length; i++) {
+            addToToDo(data[i]['Name']);
+        }
+    }
+    getItems(listId, success);
 }
 
 function setUserLists(userId) {
-
-  let success = function(data) {
-    for (var i = 0; i < data.length; i++) {
-        let menuListItem = data[i]['Name'];
-        $('#menuItems').append('<button id="menuListItem">' + menuListItem + '</button>')
+    let success = function(data) {
+        for (var i = 0; i < data.length; i++) {
+            let listName = data[i]['Name'];
+            let listId = data[i]['List_id'];
+            $('#menuItems').append('<button id="menuListItem' + listId + '">' + listName + '</button>');
+            $('#menuListItem' + listId).click(function() {
+                $('#listHeader').html(listName);
+                $('#not-done-items').empty();
+                $('#done-items').empty();
+                loadItems(listId);
+            });
+        }
+        $('#listHeader').html(data[0]['Name']);
+        loadItems(data[0]['List_id']);
     }
-  }
-
-  getListsOfUser(userId, success);
+    getListsOfUser(userId, success);
 }
 
 function verifyUser() {
     let user = firebase.auth().currentUser;
 
-    if(user.emailVerified) {
+    if (user.emailVerified) {
         addUser(user.uid, user.email);
-        // addUser("abcdefg", "hijklmn");
         return true;
-    }
-    else {
-        user.sendEmailVerification().then( ()=> {
+    } else {
+        user.sendEmailVerification().then(() => {
             console.log('Email sent to ' + txtEmail_SU.value);
         }).catch((error) => {
             console.log('Error sending email');
@@ -144,9 +157,7 @@ function verifyUser() {
 
 btnGoogle.addEventListener('click', e => {
     let provider = new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({
-        'login_hint': 'user@example.com'
-    });
+    provider.setCustomParameters({'login_hint': 'user@example.com'});
     auth.signInWithRedirect(provider);
 
     firebase.auth().getRedirectResult().then(function(result) {
@@ -162,11 +173,9 @@ btnGoogle.addEventListener('click', e => {
         // The firebase.auth.AuthCredential type that was used.
         let credential = error.credential;
         // ...
-        console.log("Error: " + errorCode +" " + errorMessage + " " + email + credential);
+        console.log("Error: " + errorCode + " " + errorMessage + " " + email + credential);
     });
 });
-
-
 
 // Logout
 btnLogout.addEventListener('click', e => {

@@ -87,10 +87,10 @@ function deleteList(listId) {
 }
 
 // ITEMS
-function getItems(listId) {
+function getItems(listId, success) {
     let url = urlStart + 'api/items?listId=' + listId;
     $.get(url, function(data) {
-        return data;
+        success(data);
     });
 }
 

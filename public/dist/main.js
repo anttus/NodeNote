@@ -15,7 +15,7 @@ $('.add-todo').keyup(function(event) {
 });
 
 function addToToDo(message) {
-    $('#sortable').append('<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + $('.add-todo').val() + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>');
+    $('#not-done-items').append('<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + message + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>');
 }
 
 $('#btnMenu').click(event => {
@@ -29,7 +29,7 @@ $('#btnMenu').click(event => {
     }
 });
 
-$('.todolist').on('change', '#sortable li input[type="checkbox"]', function() {
+$('.todolist').on('change', '#not-done-items li input[type="checkbox"]', function() {
     if ($(this).prop('checked')) {
         var doneItem = $(this).parent().parent().find('label').text();
         $(this).parent().parent().parent().addClass('remove');
@@ -72,8 +72,8 @@ function removeItem(element) {
 }
 
 $('#menuListItem').click(event => {
-    $('#sortable').empty();
-    $('#sortable').append('<ul id="sortable" class="list-unstyled checkbox">' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi1' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi2' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi3' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '</ul>');
+    $('#not-done-items').empty();
+    $('#not-done-items').append('<ul id="not-done-items" class="list-unstyled checkbox">' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi1' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi2' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + 'testi3' + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>' + '</ul>');
 });
 
 // var json;
