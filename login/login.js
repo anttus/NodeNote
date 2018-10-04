@@ -133,36 +133,58 @@ function setUserLists(userId) {
             + listName
             + '</button><button id="btnRemoveList'+ listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
 
-            $('#menuListItem' + listId).click(function() {
-                showHideMenu();
-                $('#listHeader').html(listName);
-                $('#listHeader').removeClass();
-                $('#listHeader').addClass(String(listId));
-                loadItems(listId);
-            });
-
-            $('#btnShare' + listId).click(function() {
-                $('#mainBody').hide();
-                $('#shareList').show();
-                $('#btnShareList').click(function() {
-                    let email = $('#txtShareToEmail').val();
-                    $('#txtShareToEmail').val("");
-                    addUserToList(email, listId);
-                });
-
-            });
-
-            $('#btnRemoveList' + listId).click(function() {
-                // deleteList(listId);
-                // $('#menuItems').remove('#listItem' + listId);
-                // loadItems(listId);
-            });
+            addListClickedInMenuBehavior(listId, listName);
+            addShareButtonBehavior(listId);
+            addRemoveButtonBehavior(listId);
         }
         $('#listHeader').html(data[0]['Name']);
         $('#listHeader').addClass(String(data[0]['List_id']));
         loadItems(data[0]['List_id']);
     }
     getListsOfUser(userId, success);
+}
+
+function addListClickedInMenuBehavior(listId, listName) {
+    $('#menuListItem' + listId).click(function() {
+        showHideMenu();
+        $('#listHeader').html(listName);
+        $('#listHeader').removeClass();
+        $('#listHeader').addClass(String(listId));
+        loadItems(listId);
+    });
+}
+
+function addShareButtonBehavior(listId) {
+    $('#btnShare' + listId).click(function() {
+        $('#mainBody').hide();
+        $(document.body).css("background-color", "#333333");
+        $('#shareListMenuForm').append('<input type="text" id="txtShareToEmail" placeholder="kaveri@osoite.com"/>');
+        $('#shareListMenuForm').append('<button id="btnShareList"'+ listId +' type="submit">Jaa Lista</button>');
+        $('#shareListMenu').show();
+        $('#btnShareList').click(function() {
+            let email = $('#txtShareToEmail').val();
+            $('#txtShareToEmail').val("");
+            //addUserToList(email, listId);
+            console.log("Todo: share listId:" + listId + " to " + email);
+            closeShareListMenu();
+        });
+    });
+    //Not too sure about this one...
+    $('#txtShareToEmail').keyup(function(event) {
+        if(event.keyCode === 13) {
+            console.log("Todo: share listId:" + listId + " to " + email);
+            closeShareListMenu();
+        }
+    });
+}
+
+function addRemoveButtonBehavior() {
+    $('#btnRemoveList' + listId).click(function() {
+        // deleteList(listId);
+        // $('#menuItems').remove('#listItem' + listId);
+        // loadItems(listId);
+        // instead of loadItems, call setUserLists?
+    });
 }
 
 function verifyUser() {

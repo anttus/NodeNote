@@ -94,12 +94,13 @@ function closeAddList() {
     $(document.body).css("background-color", "#ffffff");
 }
 
+$('#btnCloseShareList').click(event => {
+   closeShareListMenu();
+});
 
-
-
-function done(doneItem) {
-    let done = doneItem;
-    let markup = '<li>' + done + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="fa fa-trash-alt"></span></button></li>';
-    $('#done-items').append(markup);
-    $('.remove').remove();
+function closeShareListMenu() {
+    $('#shareListMenu').hide();
+    $('#mainBody').show();
+    $(document.body).css("background-color", "#ffffff");
+    $('#shareListMenuForm').empty();
 }
