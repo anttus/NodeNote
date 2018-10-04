@@ -114,7 +114,8 @@ function getUserId() {
 function loadItems(listId) {
     let success = function(data) {
         for (var i = 0; i < data.length; i++) {
-            addToToDo(data[i]['Name']);
+            if (data[i]['Completed'] === 0) addToToDo(data[i]['Name']);
+            else $('#done-items').append(data[i]['Name']);
         }
     }
     getItems(listId, success);
@@ -127,13 +128,17 @@ function setUserLists(userId) {
             let listId = data[i]['List_id'];
             $('#menuItems').append('<button id="menuListItem' + listId + '">' + listName + '</button>');
             $('#menuListItem' + listId).click(function() {
+                showHideMenu();
                 $('#listHeader').html(listName);
+                $('#listHeader').removeClass();
+                $('#listHeader').addClass(String(listId));
                 $('#not-done-items').empty();
                 $('#done-items').empty();
                 loadItems(listId);
             });
         }
         $('#listHeader').html(data[0]['Name']);
+        $('#listHeader').addClass(String(data[0]['List_id']));
         loadItems(data[0]['List_id']);
     }
     getListsOfUser(userId, success);

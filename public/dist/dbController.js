@@ -9,12 +9,12 @@ $.ajaxSetup({
 });
 
 // USERS
-function getUser(userId) {
-    let url = urlStart + 'api/users?userId=' + userId;
-    $.get(url, function(data) {
-        return data;
-    });
-}
+// function getUser(userId) {
+//     let url = urlStart + 'api/users?userId=' + userId;
+//     $.get(url, function(data) {
+//         return data;
+//     });
+// }
 
 function addUser(userId, email) {
     let url = urlStart + 'api/users?userId=' + userId + '&email=' + email;
@@ -95,7 +95,7 @@ function getItems(listId, success) {
 }
 
 function addItem(listId, itemName) {
-    let url = urlStart + 'api/users?listId=' + listId + '&itemName=' + itemName;
+    let url = urlStart + 'api/items?name=' + itemName + '&listId=' + listId;
     $.ajax({
         url: url,
         type: 'PUT',

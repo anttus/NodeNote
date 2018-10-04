@@ -8,9 +8,13 @@ $('#testBtn').click(function() {
 });
 
 $('.add-todo').keyup(function(event) {
-    if (event.keyCode === 13) {
-        addToToDo($('.add-todo').val());
+    if (event.keyCode === 13) { // ENTER
+        let name = $('.add-todo').val();
+        addToToDo(name);
         $('.add-todo').val("");
+        let listId;
+        listId = $('#listHeader').attr('class');
+        addItem(listId, name);
     }
 });
 
@@ -18,8 +22,7 @@ function addToToDo(message) {
     $('#not-done-items').append('<li class="ui-state-default">' + '<div class="checkbox">' + '<label>' + '<input type="checkbox" value="todo" />' + message + '</label>' + '<button class="btn btn-default btn-xs pull-right  remove-item"></button>' + '</div>' + '</li>');
 }
 
-$('#btnMenu').click(event => {
-    // console.log($('#menuItems').css('display') === 'block');
+function showHideMenu() {
     if ($('#menuItems').css('display') === 'block') {
         $('#menuItems').hide();
         $('.lists').css({opacity: 1});
@@ -27,6 +30,10 @@ $('#btnMenu').click(event => {
         $('#menuItems').show();
         $('.lists').css({opacity: 0.5});
     }
+}
+
+$('#btnMenu').click(event => {
+    showHideMenu();
 });
 
 $('.todolist').on('change', '#not-done-items li input[type="checkbox"]', function() {
