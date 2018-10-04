@@ -112,10 +112,12 @@ function getUserId() {
 }
 
 function loadItems(listId) {
+  $('#not-done-items').empty();
+  $('#done-items').empty();
     let success = function(data) {
         for (var i = 0; i < data.length; i++) {
-            if (data[i]['Completed'] === 0) addToToDo(data[i]['Name']);
-            else $('#done-items').append(data[i]['Name']);
+            if (data[i]['Completed'] === 0) addToToDo(data[i]['Name'], data[i]['Item_id']);
+            else $('#done-items').append(data[i]['Name'], data[i]['Item_id']);
         }
     }
     getItems(listId, success);
@@ -132,8 +134,6 @@ function setUserLists(userId) {
                 $('#listHeader').html(listName);
                 $('#listHeader').removeClass();
                 $('#listHeader').addClass(String(listId));
-                $('#not-done-items').empty();
-                $('#done-items').empty();
                 loadItems(listId);
             });
         }

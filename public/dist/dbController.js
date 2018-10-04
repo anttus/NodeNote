@@ -100,6 +100,7 @@ function addItem(listId, itemName) {
         url: url,
         type: 'PUT',
         success: function(result) {
+          loadItems(listId);
             console.log("item " + itemName + " added");
         }
     });
