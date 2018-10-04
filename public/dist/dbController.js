@@ -39,10 +39,10 @@ function deleteUser(userId) {
 }
 
 // LISTS
-function getListsOfUser(userId) {
+function getListsOfUser(userId, success) {
     let url = urlStart + 'api/lists?userId=' + userId;
     $.get(url, function(data) {
-        return data;
+        success(data);
     });
 }
 

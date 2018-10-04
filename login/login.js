@@ -101,6 +101,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user && verifyUser()) {
         modalLogin.style.display = 'none';
         mainBody.style.display = 'block';
+        setUserLists(user.uid);
     }
     else {
         displayLogin();
@@ -109,6 +110,18 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 function getUserId() {
   return firebase.auth().currentUser.uid;
+}
+
+function setUserLists(userId) {
+
+  let success = function(data) {
+    for (var i = 0; i < data.length; i++) {
+        let menuListItem = data[i]['Name'];
+        $('#menuItems').append('<button id="menuListItem">' + menuListItem + '</button>')
+    }
+  }
+
+  getListsOfUser(userId, success);
 }
 
 function verifyUser() {
