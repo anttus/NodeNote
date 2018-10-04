@@ -120,6 +120,33 @@ input[type="text"] {
     width: 5em;
 }
 
+#addListMenu {
+    max-width: 500px;
+    min-width: 320px;
+    margin: auto;
+    margin-top: 10%;
+    border: 1px solid #333333;
+    height: 50%;
+    background-color: #ffffff;
+}
+#addListContent {
+    width: 90%;
+    margin: auto;
+}
+
+#addListContent h4 {
+    margin-top: 2%;
+}
+
+#txtListName {
+    width: 100%;
+}
+
+#addListContent button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
 .sidenav {
     background-color: #f1f1f1;
     background-color: transparent;

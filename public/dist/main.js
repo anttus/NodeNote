@@ -62,20 +62,39 @@ $('#btnMenu').click(event => {
 
 $('#btnNewList').click(event => {
     $('#mainBody').hide();
+    $(document.body).css("background-color", "#333333");
     $('#addListMenu').show();
 });
 
 $('#btnCloseAddList').click(event => {
-    $('#addListMenu').hide();
-    $('#mainBody').show();
+    closeAddList();
+});
+
+$('#txtListName').keyup(function (event) {
+    if(event.keyCode === 13) {
+        addNewList();
+    }
 });
 
 $('#btnAddList').click(event => {
+    addNewList();
+});
+
+function addNewList() {
     let listName = $('#txtListName').val();
     let userId = getUserId();
     $('txtListName').validate();
     addList(userId, listName);
-});
+    closeAddList();
+}
+
+function closeAddList() {
+    $('#addListMenu').hide();
+    $('#mainBody').show();
+    $(document.body).css("background-color", "#ffffff");
+}
+
+
 
 
 function done(doneItem) {
