@@ -43,6 +43,8 @@ function generateItem(name, itemId, status) {
 }
 function sideMenuReload() {
     $('#menuItems').empty();
+    $('#menuItems').hide();
+    $('.lists').css({opacity: 1});
 }
 
 function listReload() {
