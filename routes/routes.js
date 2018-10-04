@@ -13,9 +13,11 @@ module.exports = function(app) {
     }));
 
     // GET /api/lists?ownerId=OWNER_ID
+    // PATCH /api/lists?listId=LIST_ID&newName=NEW_NAME
     // PUT /api/lists?userId=USER_ID&listName=LIST_NAME
     app.route('/api/lists')
     .get(controller.all_lists_of_user)
+    .patch(controller.list_name_change)
     .put(controller.create_list);
 
     // GET /api/lists/LIST_ID
@@ -27,11 +29,13 @@ module.exports = function(app) {
     // GET /api/items?listId=LIST_ID
     // PUT /api/items?name=ITEM_NAME&list_id=LIST_ID
     // DELETE /api/items?listId=LIST_ID&itemId=ITEM_ID
+    // PATCH /ap/items?itemId=ITEM_ID&newName=NEW_NAME
     // PATCH /api/items?itemId=ITEM_ID&completed=1/0
     app.route('/api/items')
     .get(controller.all_items_of_list)
     .put(controller.add_item)
     .delete(controller.delete_item)
+    .patch(controller.item_name_change)
     .patch(controller.item_status);
 
     // GET /api/users

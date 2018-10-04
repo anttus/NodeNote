@@ -35,6 +35,16 @@ exports.list_by_id = function(req, res, err) {
     }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
 };
 
+// PATCH /api/lists?listId=LIST_ID&newName=NEW_NAME
+exports.list_name_change = function(req, res, err) {
+    let listId = req.query['listId'] || 'null';
+    let newName = req.query['newName'] || 'null';
+    let query = " UPDATE Lists SET Name = '" + newName + "' WHERE List_id = " + listId + ";";
+    getPromise(query, res).then(function(result) {
+        res.send(result);
+    }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
+};
+
 // PUT /api/lists?userId=<USER_ID>&listName=<LIST_NAME>
 exports.create_list = function(req, res, err) {
     let listName = req.query['listName'] || 'null';
@@ -81,6 +91,16 @@ exports.add_item = function(req, res, err) {
     getPromise(query, res).then(function(result) {
         res.send(result);
     }).catch(err => console.log(err));
+};
+
+// PATCH /ap/items?itemId=ITEM_ID&newName=NEW_NAME
+exports.item_name_change = function(req, res, err) {
+    let itemId = req.query['itemId'] || 'null';
+    let newName = req.query['newName'] || 'null';
+    let query = " UPDATE Items SET Name = '" + newName + "' WHERE Item_id = " + itemId + ";";
+    getPromise(query, res).then(function(result) {
+        res.send(result);
+    }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
 };
 
 // DELETE /api/items?listId=<LIST_ID>&itemId=<ITEM_ID>&itemName=<ITEM_NAME>
