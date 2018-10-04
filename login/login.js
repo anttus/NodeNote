@@ -127,13 +127,35 @@ function setUserLists(userId) {
         for (var i = 0; i < data.length; i++) {
             let listName = data[i]['Name'];
             let listId = data[i]['List_id'];
-            $('#menuItems').append('<div><button style="width:50%" id="menuListItem' + listId + '">' + listName + '</button><button style="width:50%" class="fa fa-trash-alt"></button></div>');
+            $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
+            + listId
+            + '">'
+            + listName
+            + '</button><button id="btnRemoveList'+ listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
+
             $('#menuListItem' + listId).click(function() {
                 showHideMenu();
                 $('#listHeader').html(listName);
                 $('#listHeader').removeClass();
                 $('#listHeader').addClass(String(listId));
                 loadItems(listId);
+            });
+
+            $('#btnShare' + listId).click(function() {
+                $('#mainBody').hide();
+                $('#shareList').show();
+                $('#btnShareList').click(function() {
+                    let email = $('#txtShareToEmail').val();
+                    $('#txtShareToEmail').val("");
+                    addUserToList(email, listId);
+                });
+
+            });
+
+            $('#btnRemoveList' + listId).click(function() {
+                // deleteList(listId);
+                // $('#menuItems').remove('#listItem' + listId);
+                // loadItems(listId);
             });
         }
         $('#listHeader').html(data[0]['Name']);

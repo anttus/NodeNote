@@ -2,7 +2,6 @@
 
 $('#testBtn').click(function() {
     console.log("asdfasdf");
-    // deleteUser('TEST_USER_ID2');
     addToToDo($('.add-todo').val());
     $('.add-todo').val("");
 });
@@ -14,7 +13,6 @@ $('.add-todo').keyup(function(event) {
         let listId;
         listId = $('#listHeader').attr('class');
         addItem(listId, name);
-
     }
 });
 
@@ -81,42 +79,10 @@ $('#btnAddList').click(event => {
     addList(userId, listName);
 });
 
+
 function done(doneItem) {
     let done = doneItem;
-    let markup = '<li>' + done + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
+    let markup = '<li>' + done + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="fa fa-trash-alt"></span></button></li>';
     $('#done-items').append(markup);
     $('.remove').remove();
 }
-
-$('#menuListItem').click(event => {
-    $('#not-done-items').empty();
-    $('#not-done-items').append('<ul id="not-done-items" class="list-unstyled checkbox">'
-    +'<li class="ui-state-default">'
-    +'<div class="checkbox">'
-    +'<label>'
-    +'<input type="checkbox" value="todo" />'
-    +'testi1'
-    +'</label>'
-    +'<button class="btn btn-default btn-xs pull-right  remove-item"></button>'
-    +'</div>'
-    +'</li>'
-    +'<li class="ui-state-default">'
-    +'<div class="checkbox">'
-    +'<label>'
-    +'<input type="checkbox" value="todo" />'
-    +'testi2'
-    +'</label>'
-    +'<button class="btn btn-default btn-xs pull-right  remove-item"></button>'
-    +'</div>'
-    +'</li>'
-    +'<li class="ui-state-default">'
-    +'<div class="checkbox">'
-    +'<label>'
-    +'<input type="checkbox" value="todo" />'
-    +'testi3'
-    +'</label>'
-    +'<button class="btn btn-default btn-xs pull-right  remove-item"></button>'
-    +'</div>'
-    +'</li>'
-    +'</ul>');
-});
