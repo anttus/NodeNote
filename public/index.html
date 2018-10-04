@@ -79,12 +79,18 @@
             <div class="navbar-header">
                 <a href="#">NodeNote</a>
                 <button id="btnMenu">|||</button>
+
             </div>
             <div id="menuItems" style="display: none">
                 <button id="menuListItem">List1</button>
                 <button id="menuListItem">List2</button>
                 <button id="menuListItem">List3</button>
             </div>
+            <div id="accountItems">
+                <button id="btnAddList">Lisää lista</button>
+                <button id="btnLogout">Kirjaudu ulos</button>
+            </div>
+
         </div>
     </nav>
     <!-- close navbar nav -->
@@ -132,6 +138,15 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="addListMenu" style="display: none">
+    <h1>Lisää lista</h1>
+    <form>
+        <input type="text" id="txtListName" placeholder="Listan nimi">
+        <button type="submit"> Lisää lista</button>
+    </form>
+    <button id="btnCloseAddList">Sulje</button>
 </div>
 
 </body>

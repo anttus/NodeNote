@@ -53,6 +53,15 @@ $('.todolist').on('click','.remove-item',function(){
     removeItem(this);
 });
 
+$('#addListMenu').click(event => {
+    $('#mainBody').hide();
+    $('#addListMenu').show();
+});
+
+$('#btnCloseAddList').click(event => {
+    $('#addListMenu').hide();
+    $('#mainBody').show();
+});
 
 function done(doneItem){
     let done = doneItem;
