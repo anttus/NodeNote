@@ -141,6 +141,12 @@ function setUserLists(userId) {
         $('#listHeader').html(data[0]['Name']);
         $('#listHeader').addClass(String(data[0]['List_id']));
         loadItems(data[0]['List_id']);
+
+        // let promise = getUser();
+        // let realPromise = Promise.resolve(promise);
+        // realPromise.then(function(value) {
+        //     console.log(value[0]['User_id']);
+        // });
     }
     getListsOfUser(userId, success);
 }

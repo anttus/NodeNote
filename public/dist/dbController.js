@@ -9,9 +9,9 @@ $.ajaxSetup({
 });
 
 // USERS
-// function getUser(userId) {
-//     let url = urlStart + 'api/users?userId=' + userId;
-//     $.get(url, function(data) {
+// function getUser() {
+//     let url = urlStart + 'api/users';
+//     return $.get(url, function(data) {
 //         return data;
 //     });
 // }
@@ -66,7 +66,6 @@ function addList(userId, listName) {
 
 function addReferenceToUserLists(userId, listName) {
     let url = urlStart + 'api/lists/user?userId=' + userId + '&listName=' + listName;
-    console.log("asdfasdfasd");
     $.ajax({
         url: url,
         type: 'PUT',
