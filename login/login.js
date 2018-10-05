@@ -114,16 +114,17 @@ function getUserId() {
 function loadItems(listId) {
     $('#not-done-items').empty();
     $('#done-items').empty();
-    let success = function(data) {
+    let promise = Promise.resolve(getItems(listId));
+    promise.then(data => {
         for (var i = 0; i < data.length; i++) {
             generateItem(data[i]['Name'], data[i]['Item_id'], data[i]['Completed']);
         }
-    }
-    getItems(listId, success);
+    });
 }
 
 function setUserLists(userId) {
-    let success = function(data) {
+    let promise = Promise.resolve(getListsOfUser(userId));
+    promise.then(data => {
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
             let listName = data[i]['Name'];
@@ -141,14 +142,7 @@ function setUserLists(userId) {
         $('#listHeader').html(data[0]['Name']);
         $('#listHeader').addClass(String(data[0]['List_id']));
         loadItems(data[0]['List_id']);
-
-        // let promise = getUser();
-        // let realPromise = Promise.resolve(promise);
-        // realPromise.then(function(value) {
-        //     console.log(value[0]['User_id']);
-        // });
-    }
-    getListsOfUser(userId, success);
+    });
 }
 
 function addListClickedInMenuBehavior(listId, listName) {

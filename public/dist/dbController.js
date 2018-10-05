@@ -9,12 +9,12 @@ $.ajaxSetup({
 });
 
 // USERS
-// function getUser() {
-//     let url = urlStart + 'api/users';
-//     return $.get(url, function(data) {
-//         return data;
-//     });
-// }
+function getUser() {
+    let url = urlStart + 'api/users';
+    return $.get(url, function(data) {
+        return data;
+    });
+}
 
 function addUser(userId, email) {
     let url = urlStart + 'api/users?userId=' + userId + '&email=' + email;
@@ -39,16 +39,16 @@ function deleteUser(userId) {
 }
 
 // LISTS
-function getListsOfUser(userId, success) {
+function getListsOfUser(userId) {
     let url = urlStart + 'api/lists?userId=' + userId;
-    $.get(url, function(data) {
-        success(data);
+    return $.get(url, function(data) {
+        return data;
     });
 }
 
 // function getListById(listId) {
 //     let url = urlStart + 'api/lists/' + listId;
-//     $.get(url, function(data) {
+//     return $.get(url, function(data) {
 //         return data;
 //     });
 // }
@@ -98,10 +98,10 @@ function deleteList(listId) {
 }
 
 // ITEMS
-function getItems(listId, success) {
+function getItems(listId) {
     let url = urlStart + 'api/items?listId=' + listId;
-    $.get(url, function(data) {
-        success(data);
+    return $.get(url, function(data) {
+        return data;
     });
 }
 
