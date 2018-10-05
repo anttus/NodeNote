@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="62ac8993-49d6-4e8b-8a63-55f9ee6ac618" name="Default Changelist" comment="" />
+    <list default="true" id="62ac8993-49d6-4e8b-8a63-55f9ee6ac618" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NodeNote.sql" beforeDir="false" afterPath="$PROJECT_DIR$/NodeNote.sql" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -61,10 +64,10 @@
         <counts>
           <entry key="project.closed" value="4" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.22" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -72,7 +75,7 @@
           <entry key="css" value="2194" />
           <entry key="html" value="1387" />
           <entry key="js" value="3576" />
-          <entry key="txt" value="1109" />
+          <entry key="txt" value="1328" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -80,7 +83,7 @@
           <entry key="CSS" value="2194" />
           <entry key="HTML" value="1388" />
           <entry key="JavaScript" value="3575" />
-          <entry key="PLAIN_TEXT" value="1109" />
+          <entry key="PLAIN_TEXT" value="1328" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -141,11 +144,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/public/dist/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="100">
-                  <caret line="46" column="34" lean-forward="true" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+                <state relative-caret-position="-1119">
+                  <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
                 </state>
               </provider>
             </entry>
@@ -159,11 +162,16 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/login/login.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2898">
-                  <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
+                <state relative-caret-position="100">
+                  <caret line="185" column="29" lean-forward="true" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
+                  <folding>
+                    <element signature="n#style#0;n#button#0;n#div#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#button#1;n#div#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#button#2;n#div#0;n#!!top" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -328,6 +336,7 @@
       <workItem from="1538387184359" duration="8700000" />
       <workItem from="1538578795744" duration="21384000" />
       <workItem from="1538684127233" duration="1395000" />
+      <workItem from="1538725815026" duration="1998000" />
     </task>
     <task id="LOCAL-00001" summary="Removed Item_id from NodeNote.sql List -table.">
       <created>1538066447944</created>
@@ -441,14 +450,29 @@
       <option name="project" value="LOCAL" />
       <updated>1538685382287</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="NodeNote.sql, added new table UserLists for list sharing.&#10;Lists still holds User_Id as foreign key for use testing before changes to REST API can be made.">
+      <created>1538725929296</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1538725929296</updated>
+    </task>
+    <task id="LOCAL-00018" summary="New attempt at new sql.">
+      <created>1538728744710</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1538728744710</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78362000" />
+    <option name="totallyTimeSpent" value="80360000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.3347548" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -530,7 +554,9 @@
     <MESSAGE value="login.js refactoring setUserLists. &#10;Share list: styling done, functionality done except for database stuff." />
     <MESSAGE value="Added remove list functionality. Adding a list now correctly refreshes list menu." />
     <MESSAGE value="Minor QoL change for list adding and removing. Removal still a bit buggy." />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor QoL change for list adding and removing. Removal still a bit buggy." />
+    <MESSAGE value="NodeNote.sql, added new table UserLists for list sharing.&#10;Lists still holds User_Id as foreign key for use testing before changes to REST API can be made." />
+    <MESSAGE value="New attempt at new sql." />
+    <option name="LAST_COMMIT_MESSAGE" value="New attempt at new sql." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/routes.js" />
@@ -577,13 +603,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2898">
-          <caret line="126" column="25" selection-start-line="126" selection-start-column="25" selection-end-line="126" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/controllers/restController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1932">
@@ -598,6 +617,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/dist/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1119">
+          <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1863">
@@ -605,10 +631,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/dist/main.js">
+    <entry file="file://$PROJECT_DIR$/login/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="46" column="34" lean-forward="true" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+          <caret line="185" column="29" lean-forward="true" selection-start-line="185" selection-start-column="29" selection-end-line="185" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#button#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
