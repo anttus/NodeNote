@@ -63,6 +63,7 @@ function showHideMenu() {
 
 $('#btnMenu').click(event => {
     showHideMenu();
+
 });
 
 $('#btnNewList').click(event => {
@@ -90,6 +91,7 @@ function addNewList() {
     let userId = getUserId();
     $('txtListName').validate();
     addList(userId, listName);
+    addReferenceToUserLists(userId, listName);
     setUserLists(getUserId());
     closeAddList();
 }

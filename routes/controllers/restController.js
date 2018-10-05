@@ -45,13 +45,27 @@ exports.list_name_change = function(req, res, err) {
     }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
 };
 
-// PUT /api/lists?userId=<USER_ID>&listName=<LIST_NAME>
+// PUT /api/lists?userId=USER_ID&listName=LIST_NAME
 exports.create_list = function(req, res, err) {
     let listName = req.query['listName'] || 'null';
     let userId = req.query['userId'] || 'null';
     let query = "INSERT INTO Lists (User_id, Name) VALUES ('" + userId + "', '" +  listName  + "');";
     getPromise(query, res).then(function(result) {
         res.send(result);
+    }).catch(err => res.send('ERROR: Handle this error better'));
+};
+
+// PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
+exports.create_list_ref_to_userlists = function(req, res, err) {
+    let userId = req.query['userId'] || 'null';
+    let listName = req.query['listName'] || 'null';
+    let query1 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "' AND Name = '" + listName + "';";
+    getPromise(query1, res).then(function(result) {
+        let listId = result[0]['List_id'];
+        let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");"
+        getPromise(query2, res).then(function(result) {
+            res.send(result);
+        }).catch(err => res.send('ERROR: Handle this error better'));
     }).catch(err => res.send('ERROR: Handle this error better'));
 };
 
@@ -70,13 +84,18 @@ exports.all_items_of_list = function(req, res, err) {
 // Works, but needs rethinking
 exports.delete_list = function(req, res, err) {
     let listId = req.url.slice(11);
-    let query = "DELETE FROM Lists WHERE List_id = " + listId + ";";
-    getPromise(query, res).then(function(result) {
+    let query1 = "DELETE FROM UserLists WHERE ListId = " + listId + ";";
+    getPromise(query1, res).then(function(result) {
         res.send(result);
         res.end();
     }).catch(err => console.log(err));
-    let query1 = "DELETE FROM Items WHERE List_id = " + listId + ";";
-    getPromise(query1, res).then(function(result) {
+    let query2 = "DELETE FROM Lists WHERE List_id = " + listId + ";";
+    getPromise(query2, res).then(function(result) {
+        res.send(result);
+        res.end();
+    }).catch(err => console.log(err));
+    let query3 = "DELETE FROM Items WHERE List_id = " + listId + ";";
+    getPromise(query3, res).then(function(result) {
         res.send(result);
         res.end();
     }).catch(err => console.log(err));

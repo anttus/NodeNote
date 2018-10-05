@@ -20,8 +20,9 @@ module.exports = function(app) {
     .patch(controller.list_name_change)
     .put(controller.create_list);
 
-    // app.route('/api/lists/user')
-
+    // PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
+    app.route('/api/lists/user')
+    .put(controller.create_list_ref_to_userlists);
 
     // GET /api/lists/LIST_ID
     // DELETE /api/lists/LIST_ID
