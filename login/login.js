@@ -134,7 +134,6 @@ function setUserLists(userId) {
             + '">'
             + listName
             + '</button><button id="btnRemoveList'+ listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
-
             addListClickedInMenuBehavior(listId, listName);
             addShareButtonBehavior(listId);
             addRemoveButtonBehavior(listId);
@@ -165,7 +164,7 @@ function addShareButtonBehavior(listId) {
         $('#btnShareList').click(function() {
             let email = $('#txtShareToEmail').val();
             $('#txtShareToEmail').val("");
-            //addUserToList(email, listId);
+            addReferenceToUserLists(email, listId);
             console.log("Todo: share listId:" + listId + " to " + email);
             closeShareListMenu();
         });

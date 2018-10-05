@@ -20,9 +20,14 @@ module.exports = function(app) {
     .patch(controller.list_name_change)
     .put(controller.create_list);
 
+
+    // PUT /api/lists/user?email=EMAIL&listId=LIST_ID
+    app.route('/api/lists/users')
+    .put(controller.create_list_ref_to_userlists);
+
     // PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
     app.route('/api/lists/user')
-    .put(controller.create_list_ref_to_userlists);
+    .put(controller.create_list_ref_to_userlists_on_create);
 
     // GET /api/lists/LIST_ID
     // DELETE /api/lists/LIST_ID

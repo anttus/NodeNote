@@ -64,9 +64,20 @@ function addList(userId, listName) {
     });
 }
 
-function addReferenceToUserLists(userId, listName) {
-    let url = urlStart + 'api/lists/user?userId=' + userId + '&listName=' + listName;
+function addReferenceToUserLists(email, listId) {
+    let url = urlStart + 'api/lists/users?email=' + email + '&listId=' + listId;
     $.ajax({
+        url: url,
+        type: 'PUT',
+        success: function(result) {
+            console.log("reference added to UserLists for " + email + " and " + listId);
+        }
+    });
+}
+
+function addReferenceToUserListsOnCreate(userId, listName) {
+    let url = urlStart + 'api/lists/user?userId=' + userId + '&listName=' + listName;
+    return $.ajax({
         url: url,
         type: 'PUT',
         success: function(result) {

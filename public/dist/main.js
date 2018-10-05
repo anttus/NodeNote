@@ -1,7 +1,6 @@
 'use strict';
 
 $('#testBtn').click(function() {
-    console.log("asdfasdf");
     addToToDo($('.add-todo').val());
     $('.add-todo').val("");
 });
@@ -33,7 +32,6 @@ function generateItem(name, itemId, status) {
     else $('#done-items').prepend(item);
 
     $('#checkBox' + itemId).click(function() {
-            console.log(itemId);
             setItemStatus(itemId, status === 0 ? 1 : 0);
     });
 
@@ -90,8 +88,8 @@ function addNewList() {
     let listName = $('#txtListName').val();
     let userId = getUserId();
     $('txtListName').validate();
+    addReferenceToUserListsOnCreate(userId, listName);
     addList(userId, listName);
-    addReferenceToUserLists(userId, listName);
     setUserLists(getUserId());
     closeAddList();
 }

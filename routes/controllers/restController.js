@@ -16,7 +16,7 @@ exports.load_index = function(req, res, err) {
     res.sendFile(appDir + "/public/index.html");
 };
 
-// GET /api/lists?userId=userId
+// // GET /api/lists?userId=userId
 exports.all_lists_of_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let query = "SELECT * FROM Lists WHERE User_id = '" + userId + "';";
@@ -25,6 +25,16 @@ exports.all_lists_of_user = function(req, res, err) {
         else res.send(result);
     }).catch(err => res.send('ERROR: Handle this error better'));
 };
+
+// // GET /api/lists?userId=userId
+// exports.all_lists_of_user = function(req, res, err) {
+//     let userId = req.query['userId'] || 'null';
+//     let query = "SELECT ListId FROM UserLists WHERE UserId = '" + userId + "';";
+//     getPromise(query, res).then(function(result) {
+//         if (result == null) res.send("Empty");
+//         else res.send(result);
+//     }).catch(err => res.send('ERROR: Handle this error better'));
+// };
 
 // GET /api/lists/:id
 exports.list_by_id = function(req, res, err) {
@@ -56,15 +66,41 @@ exports.create_list = function(req, res, err) {
 };
 
 // PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
-exports.create_list_ref_to_userlists = function(req, res, err) {
+exports.create_list_ref_to_userlists_on_create = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let listName = req.query['listName'] || 'null';
     let query1 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "' AND Name = '" + listName + "';";
     getPromise(query1, res).then(function(result) {
         let listId = result[0]['List_id'];
-        let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");"
+        let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");";
+        console.log(query2);
         getPromise(query2, res).then(function(result) {
             res.send(result);
+        }).catch(err => res.send('ERROR: Handle this error better'));
+    }).catch(err => res.send('ERROR: Handle this error better'));
+};
+
+// PUT /api/lists/users?email=EMAIL&listId=LIST_ID
+exports.create_list_ref_to_userlists = function(req, res, err) {
+    // let userId = req.query['userId'] || 'null';
+    // let listName = req.query['listName'] || 'null';
+    let email = req.query['email'] || 'null';
+    let listIdOrig = req.query['listId'] || 'null';
+    let query1 = "SELECT User_id FROM Users WHERE email = '" + email + "';";
+    console.log(query1);
+    getPromise(query1, res).then(result => {
+        let userId = result[0]['User_id'];
+        let query2 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "';";
+        console.log(query2);
+        // let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");"
+        getPromise(query2, res).then(result => {
+            // res.send(result);
+            let listId = result[0]['List_id'];
+            let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listIdOrig + ");";
+            console.log(query3);
+            getPromise(query3, res).then(result => {
+                res.send(result);
+            });
         }).catch(err => res.send('ERROR: Handle this error better'));
     }).catch(err => res.send('ERROR: Handle this error better'));
 };
