@@ -120,13 +120,15 @@ exports.create_list_ref_to_userlists = function(req, res, err) {
     // let listName = req.query['listName'] || 'null';
     let email = req.query['email'] || 'null';
     let listIdOrig = req.query['listId'] || 'null';
+    console.log(listIdOrig);
     let query1 = "SELECT User_id FROM Users WHERE email = '" + email + "';";
     getPromise(query1, res).then(result => {
         let userId = result[0]['User_id'];
-        let query2 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "';";
+        let query2 = "SELECT List_id FROM Lists WHERE List_id = '" + listIdOrig + "';";
         // let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");"
         getPromise(query2, res).then(result => {
             // res.send(result);
+            console.log(result);
             let listId = result[0]['List_id'];
             let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listIdOrig + ");";
             getPromise(query3, res).then(result => {

@@ -128,7 +128,7 @@ function setUserLists(userId) {
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
             let listName = data[i][0]['Name'];
-            let listId = data[i][0]['ListId'];
+            let listId = data[i][0]['List_id'];
             $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
             + listId
             + '">'
@@ -164,8 +164,8 @@ function addShareButtonBehavior(listId) {
         $('#btnShareList').click(function() {
             let email = $('#txtShareToEmail').val();
             $('#txtShareToEmail').val("");
-            addReferenceToUserLists(email, listId);
             console.log("Todo: share listId:" + listId + " to " + email);
+            addReferenceToUserLists(email, listId);
             closeShareListMenu();
         });
     });
