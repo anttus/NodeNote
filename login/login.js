@@ -151,30 +151,40 @@ function addListClickedInMenuBehavior(listId, listName) {
 }
 
 function addShareButtonBehavior(listId) {
+
     $('#btnShare' + listId).click(function () {
+        $('#shareListMenuContent').empty();
+        //Needs rethinking, creates a form to validate for every list.
+        $('#shareListMenuContent').append('<h4>Jaa lista</h4><form id="shareListMenuForm' + listId + '"></form> <button id="btnCloseShareList">Sulje</button>');
         $('#mainBody').hide();
         $(document.body).css("background-color", "#333333");
-        $('#shareListMenuForm').append('<input type="email" name="email" id="txtShareToEmail" placeholder="kaveri@osoite.com"/>');
-        $('#shareListMenuForm').append('<button id="btnShareList' + listId + '" type="submit" name="Submit" class="submit">Jaa Lista</button>');
+        $('#shareListMenuForm' + listId).append('<input type="email" name="email" id="txtShareToEmail" placeholder="kaveri@osoite.com"/>');
+        $('#shareListMenuForm' + listId).append('<button id="btnShareList' + listId + '" type="submit" name="Submit" class="submit">Jaa Lista</button>');
         $('#shareListMenu').show();
-        $('#btnShareList' + listId).click(function () {
+        //Validates the shared form list.
+        $('#shareListMenuForm' + listId).validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            //Separate validation required because of the submitHandler.
+            submitHandler: function (form) {
+                let email = $('#txtShareToEmail').val();
+                $('#txtShareToEmail').val("");
+                // addReferenceToUserLists(email, listId);
+                console.log("sharing list: " + listId + " to: " + email);
+                closeShareListMenu();
+            }
         });
     });
-
-    // $('#txtShareToEmail').keyup(function (event) {
-    //     if (event.keyCode === 13) {
-    //         console.log("Todo: share listId:" + listId + " to " + email);
-    //         closeShareListMenu();
-    //     }
-    // });
 }
 
 function addRemoveButtonBehavior(listId) {
     $('#btnRemoveList' + listId).click(function () {
         deleteList(listId);
         $('#menuItems').remove('#listItem' + listId);
-        // loadItems(listId);
-        // instead of loadItems, call setUserLists?
         setUserLists(getUserId());
     });
 }
@@ -231,7 +241,7 @@ btnLogout.addEventListener('click', e => {
     txtPassword_SI.value = "";
 });
 $(document).ready(function () {
-    //Form validations
+    //Normal form validations.
     $('#signUpFormForm').validate({
         rules: {
             email: {
@@ -265,16 +275,16 @@ $(document).ready(function () {
         }
     });
     $('#loginFormForm').validate({
-       rules: {
-           email: {
-               required: true,
-               email: true
-           },
-           password: {
-               required: true,
-               minLength: 5
-           }
-       },
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minLength: 5
+            }
+        },
         messages: {
             email: {
                 required: "Syötä sähköpostiosoite",
@@ -306,18 +316,5 @@ $(document).ready(function () {
             closeAddList();
         }
     });
-    $('#shareListMenuForm').validate({
-        rules: {
-            email: {
-                required: true,
-                email: true
-            }
-        },
-        submitHandler: function (form) {
-            let email = $('#txtShareToEmail').val();
-            $('#txtShareToEmail').val("");
-            addReferenceToUserLists(email, listId);
-            closeShareListMenu();
-        }
-    });
+
 });
