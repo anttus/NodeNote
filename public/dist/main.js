@@ -88,7 +88,6 @@ function addNewList() {
     let listName = $('#txtListName').val();
     let userId = getUserId();
     $('txtListName').validate();
-    addReferenceToUserListsOnCreate(userId, listName);
     addList(userId, listName);
     setUserLists(getUserId());
     closeAddList();

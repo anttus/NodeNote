@@ -26,8 +26,8 @@ module.exports = function(app) {
     .put(controller.create_list_ref_to_userlists);
 
     // PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
-    app.route('/api/lists/user')
-    .put(controller.create_list_ref_to_userlists_on_create);
+    // app.route('/api/lists/user')
+    // .put(controller.create_list_ref_to_userlists_on_create);
 
     // GET /api/lists/LIST_ID
     // DELETE /api/lists/LIST_ID

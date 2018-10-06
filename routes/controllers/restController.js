@@ -9,7 +9,7 @@ async function getPromise(query, res) {
     return new Promise(async function(resolve, reject, err) {
         let result = await pool.query(query);
         resolve(result);
-    }).catch((err) => res.send('ERROR: Handle this error better'));
+    }).catch((err) => console.log(err));
 }
 
 exports.load_index = function(req, res, err) {
@@ -20,29 +20,29 @@ exports.load_index = function(req, res, err) {
 exports.all_lists_of_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let query = "SELECT * FROM Lists WHERE User_id = '" + userId + "';";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         if (result == null) res.send("Empty");
         else res.send(result);
-    }).catch(err => res.send('ERROR: Handle this error better'));
+    }).catch(err => console.log(err));
 };
 
 // // GET /api/lists?userId=userId
 // exports.all_lists_of_user = function(req, res, err) {
 //     let userId = req.query['userId'] || 'null';
 //     let query = "SELECT ListId FROM UserLists WHERE UserId = '" + userId + "';";
-//     getPromise(query, res).then(function(result) {
+//     getPromise(query, res).then(result =>  {
 //         if (result == null) res.send("Empty");
 //         else res.send(result);
-//     }).catch(err => res.send('ERROR: Handle this error better'));
+//     }).catch(err => console.log(err));
 // };
 
 // GET /api/lists/:id
 exports.list_by_id = function(req, res, err) {
     let listId = req.url.slice(11);
     let query = "SELECT * FROM Lists WHERE List_id = " + listId + ";";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
-    }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
+    }).catch(err => console.log(err)).catch(err => console.log(err)); // ???
 };
 
 // PATCH /api/lists?listId=LIST_ID&newName=NEW_NAME
@@ -50,34 +50,40 @@ exports.list_name_change = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
     let newName = req.query['newName'] || 'null';
     let query = " UPDATE Lists SET Name = '" + newName + "' WHERE List_id = " + listId + ";";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
-    }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
+    }).catch(err => console.log(err)).catch(err => console.log(err)); // ???
 };
 
 // PUT /api/lists?userId=USER_ID&listName=LIST_NAME
-exports.create_list = function(req, res, err) {
-    let listName = req.query['listName'] || 'null';
-    let userId = req.query['userId'] || 'null';
-    let query = "INSERT INTO Lists (User_id, Name) VALUES ('" + userId + "', '" +  listName  + "');";
-    getPromise(query, res).then(function(result) {
-        res.send(result);
-    }).catch(err => res.send('ERROR: Handle this error better'));
-};
+// exports.create_list = function(req, res, err) {
+//     let listName = req.query['listName'] || 'null';
+//     let userId = req.query['userId'] || 'null';
+//     let query = "INSERT INTO Lists (User_id, Name) VALUES ('" + userId + "', '" +  listName  + "');";
+//     getPromise(query, res).then(result =>  {
+//         res.send(result);
+//     }).catch(err => console.log(err));
+// };
 
 // PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
-exports.create_list_ref_to_userlists_on_create = function(req, res, err) {
+exports.create_list = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let listName = req.query['listName'] || 'null';
-    let query1 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "' AND Name = '" + listName + "';";
-    getPromise(query1, res).then(function(result) {
-        let listId = result[0]['List_id'];
-        let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");";
-        console.log(query2);
-        getPromise(query2, res).then(function(result) {
+    let query1 = "INSERT INTO Lists (User_id, Name) VALUES ('" + userId + "', '" +  listName  + "');";
+    getPromise(query1, res).then(result =>  {
+        res.send(result);
+        res.end();
+        let query2 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "' AND Name = '" + listName + "';";
+        getPromise(query2, res).then(result =>  {
+            let listId = result[0]['List_id'];
+            let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");";
+            getPromise(query3, res).then(result =>  {
+                console.log(result);
+            }).catch(err => console.log(err));
             res.send(result);
-        }).catch(err => res.send('ERROR: Handle this error better'));
-    }).catch(err => res.send('ERROR: Handle this error better'));
+            res.end();
+        }).catch(err => console.log(err));
+    }).catch(err => console.log(err));
 };
 
 // PUT /api/lists/users?email=EMAIL&listId=LIST_ID
@@ -87,29 +93,26 @@ exports.create_list_ref_to_userlists = function(req, res, err) {
     let email = req.query['email'] || 'null';
     let listIdOrig = req.query['listId'] || 'null';
     let query1 = "SELECT User_id FROM Users WHERE email = '" + email + "';";
-    console.log(query1);
     getPromise(query1, res).then(result => {
         let userId = result[0]['User_id'];
         let query2 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "';";
-        console.log(query2);
         // let query2 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");"
         getPromise(query2, res).then(result => {
             // res.send(result);
             let listId = result[0]['List_id'];
             let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listIdOrig + ");";
-            console.log(query3);
             getPromise(query3, res).then(result => {
                 res.send(result);
             });
-        }).catch(err => res.send('ERROR: Handle this error better'));
-    }).catch(err => res.send('ERROR: Handle this error better'));
+        }).catch(err => console.log(err));
+    }).catch(err => console.log(err));
 };
 
 // GET /api/items?listId=listId
 exports.all_items_of_list = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
     let query = "SELECT * FROM Items WHERE List_id = " + listId + ";";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         if (result == null) res.send("Empty");
         else res.send(result);
     }).catch(err => console.log(err));
@@ -121,17 +124,17 @@ exports.all_items_of_list = function(req, res, err) {
 exports.delete_list = function(req, res, err) {
     let listId = req.url.slice(11);
     let query1 = "DELETE FROM UserLists WHERE ListId = " + listId + ";";
-    getPromise(query1, res).then(function(result) {
+    getPromise(query1, res).then(result =>  {
         res.send(result);
         res.end();
     }).catch(err => console.log(err));
     let query2 = "DELETE FROM Lists WHERE List_id = " + listId + ";";
-    getPromise(query2, res).then(function(result) {
+    getPromise(query2, res).then(result =>  {
         res.send(result);
         res.end();
     }).catch(err => console.log(err));
     let query3 = "DELETE FROM Items WHERE List_id = " + listId + ";";
-    getPromise(query3, res).then(function(result) {
+    getPromise(query3, res).then(result =>  {
         res.send(result);
         res.end();
     }).catch(err => console.log(err));
@@ -143,7 +146,7 @@ exports.add_item = function(req, res, err) {
     let itemName = req.query['name'] || 'null';
     let listId = req.query['listId'] || 'null';
     let query = "INSERT INTO Items (Name, List_id) VALUES ('" + itemName + "', " + listId + ");";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
     }).catch(err => console.log(err));
 };
@@ -153,9 +156,9 @@ exports.item_name_change = function(req, res, err) {
     let itemId = req.query['itemId'] || 'null';
     let newName = req.query['newName'] || 'null';
     let query = " UPDATE Items SET Name = '" + newName + "' WHERE Item_id = " + itemId + ";";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
-    }).catch(err => res.send('ERROR: Handle this error better')).catch(err => console.log(err)); // ???
+    }).catch(err => console.log(err)).catch(err => console.log(err)); // ???
 };
 
 // DELETE /api/items?listId=LIST_ID&itemId=ITEM_ID&itemName=ITEM_NAME
@@ -164,7 +167,7 @@ exports.delete_item = function(req, res, err) {
     let itemId = req.query['itemId'] || 'null';
     let itemName = req.query['itemName'] || 'null';
     let query = "DELETE FROM Items WHERE List_id = " + listId + " AND Item_id = " + itemId + " AND Name = '" + itemName + "';";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
     }).catch(err => console.log(err));
 };
@@ -172,7 +175,7 @@ exports.delete_item = function(req, res, err) {
 // GET /api/users
 exports.get_users = function(req, res, err) {
     let query = "SELECT * FROM Users;";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
     }).catch(err => console.log(err));
 };
@@ -182,7 +185,7 @@ exports.add_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let email = req.query['email'] || 'null';
     let query = " INSERT INTO Users (User_id, email) SELECT * FROM (SELECT '" + userId + "', '" + email + "') AS tmp WHERE NOT EXISTS (SELECT User_id FROM Users WHERE User_id = '" + userId + "');";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
     }).catch(err => console.log(err));
 };
@@ -191,7 +194,7 @@ exports.add_user = function(req, res, err) {
 exports.delete_user = function(req, res, err) {
     let userId = req.query['userId'] || 'null';
     let query = "DELETE FROM Users WHERE User_id = '" + userId + "';";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
     }).catch(err => console.log(err));
 };
@@ -201,7 +204,7 @@ exports.item_status = function(req, res, err) {
     let itemId = req.query['itemId'] || 'null';
     let completed = req.query['completed'] || 'null';
     let query = "UPDATE Items SET Completed = '" + completed + "' WHERE Item_id = '" + itemId + "';";
-    getPromise(query, res).then(function(result) {
+    getPromise(query, res).then(result =>  {
         res.send(result);
     }).catch(err => console.log(err));
 };
