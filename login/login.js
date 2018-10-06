@@ -127,8 +127,8 @@ function setUserLists(userId) {
     promise.then(data => {
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
-            let listName = data[i]['Name'];
-            let listId = data[i]['List_id'];
+            let listName = data[i][0]['Name'];
+            let listId = data[i][0]['ListId'];
             $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
             + listId
             + '">'
@@ -138,9 +138,9 @@ function setUserLists(userId) {
             addShareButtonBehavior(listId);
             addRemoveButtonBehavior(listId);
         }
-        $('#listHeader').html(data[0]['Name']);
-        $('#listHeader').addClass(String(data[0]['List_id']));
-        loadItems(data[0]['List_id']);
+        $('#listHeader').html(data[0][0]['Name']);
+        $('#listHeader').addClass(String(data[0][0]['List_id']));
+        loadItems(data[0][0]['List_id']);
     });
 }
 

@@ -16,14 +16,42 @@ exports.load_index = function(req, res, err) {
     res.sendFile(appDir + "/public/index.html");
 };
 
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
+}
+
 // // GET /api/lists?userId=userId
-exports.all_lists_of_user = function(req, res, err) {
+exports.all_lists_of_user = async function(req, res, err) {
     let userId = req.query['userId'] || 'null';
-    let query = "SELECT * FROM Lists WHERE User_id = '" + userId + "';";
-    getPromise(query, res).then(result =>  {
-        if (result == null) res.send("Empty");
-        else res.send(result);
-    }).catch(err => console.log(err));
+    let result = await pool.query("SELECT ListId FROM UserLists WHERE UserId = '" + userId + "';");
+    var resultArr = [];
+    Promise.all([
+        fetchLists(resultArr)
+    ]).then(() => res.send(resultArr)).catch(err => console.log(err));
+    async function fetchLists(resultArr) {
+        return new Promise((resolve, reject) => {
+            asyncForEach(result, async (resVal) => {
+                let listId = resVal['ListId'];
+                let queryRes = await pool.query("SELECT * FROM Lists WHERE List_id = '" + listId + "';");
+                resultArr.push(queryRes);
+            })
+            .then(data => resolve([resultArr]))
+            .catch(err => reject(err))
+        })
+    }
+
+    // let promise = getPromise(query1, res).then(result =>  {
+    //     asyncForEach(result, async (resVal) => {
+    //         let listId = resVal['ListId'];
+    //
+    //         getPromise(query2, res).then(result =>  {
+    //             return this;
+    //         })
+    //         .catch(err => console.log(err));
+    //     }).catch(err => console.log(err));
+    // }).catch(err => console.log(err));
 };
 
 // // GET /api/lists?userId=userId
