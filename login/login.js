@@ -69,10 +69,9 @@ btnSignIn.addEventListener('click', e => {
     const pass = txtPassword_SI.value;
 
     //Sign in
-    let promise = auth.signInWithEmailAndPassword(email, pass).then(function(user) {
+    let promise = auth.signInWithEmailAndPassword(email, pass).then(function (user) {
         // user signed in
-
-    }).catch(function(error) {
+    }).catch(function (error) {
         let errorCode = error.code;
         let errorMessage = error.message;
 
@@ -86,18 +85,15 @@ btnSignIn.addEventListener('click', e => {
 });
 
 btnSignUp.addEventListener('click', e => {
-
     //Get email and pass
     const email = txtEmail_SU.value;
     const pass = txtPassword_SU.value;
-
     //Sign up
     let promise = auth.createUserWithEmailAndPassword(email, pass);
     promise.catch(e => console.log(e.message));
-
 });
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
     if (user && verifyUser()) {
         modalLogin.style.display = 'none';
         mainBody.style.display = 'block';
@@ -130,10 +126,10 @@ function setUserLists(userId) {
             let listName = data[i][0]['Name'];
             let listId = data[i][0]['List_id'];
             $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
-            + listId
-            + '">'
-            + listName
-            + '</button><button id="btnRemoveList'+ listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
+                + listId
+                + '">'
+                + listName
+                + '</button><button id="btnRemoveList' + listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
             addListClickedInMenuBehavior(listId, listName);
             addShareButtonBehavior(listId);
             addRemoveButtonBehavior(listId);
@@ -145,7 +141,7 @@ function setUserLists(userId) {
 }
 
 function addListClickedInMenuBehavior(listId, listName) {
-    $('#menuListItem' + listId).click(function() {
+    $('#menuListItem' + listId).click(function () {
         showHideMenu();
         $('#listHeader').html(listName);
         $('#listHeader').removeClass();
@@ -155,31 +151,26 @@ function addListClickedInMenuBehavior(listId, listName) {
 }
 
 function addShareButtonBehavior(listId) {
-    $('#btnShare' + listId).click(function() {
+    $('#btnShare' + listId).click(function () {
         $('#mainBody').hide();
         $(document.body).css("background-color", "#333333");
-        $('#shareListMenuForm').append('<input type="text" id="txtShareToEmail" placeholder="kaveri@osoite.com"/>');
-        $('#shareListMenuForm').append('<button id="btnShareList"'+ listId +' type="submit">Jaa Lista</button>');
+        $('#shareListMenuForm').append('<input type="email" name="email" id="txtShareToEmail" placeholder="kaveri@osoite.com"/>');
+        $('#shareListMenuForm').append('<button id="btnShareList' + listId + '" type="submit" name="Submit" class="submit">Jaa Lista</button>');
         $('#shareListMenu').show();
-        $('#btnShareList').click(function() {
-            let email = $('#txtShareToEmail').val();
-            $('#txtShareToEmail').val("");
-            console.log("Todo: share listId:" + listId + " to " + email);
-            addReferenceToUserLists(email, listId);
-            closeShareListMenu();
+        $('#btnShareList' + listId).click(function () {
         });
     });
 
-    $('#txtShareToEmail').keyup(function(event) {
-        if(event.keyCode === 13) {
-            console.log("Todo: share listId:" + listId + " to " + email);
-            closeShareListMenu();
-        }
-    });
+    // $('#txtShareToEmail').keyup(function (event) {
+    //     if (event.keyCode === 13) {
+    //         console.log("Todo: share listId:" + listId + " to " + email);
+    //         closeShareListMenu();
+    //     }
+    // });
 }
 
 function addRemoveButtonBehavior(listId) {
-    $('#btnRemoveList' + listId).click(function() {
+    $('#btnRemoveList' + listId).click(function () {
         deleteList(listId);
         $('#menuItems').remove('#listItem' + listId);
         // loadItems(listId);
@@ -209,11 +200,11 @@ btnGoogle.addEventListener('click', e => {
     provider.setCustomParameters({'login_hint': 'user@example.com'});
     auth.signInWithRedirect(provider);
 
-    firebase.auth().getRedirectResult().then(function(result) {
+    firebase.auth().getRedirectResult().then(function (result) {
         let user = result.user;
         console.log(user);
 
-    }).catch(function(error) {
+    }).catch(function (error) {
         // Handle Errors here.
         let errorCode = error.code;
         let errorMessage = error.message;
@@ -228,9 +219,9 @@ btnGoogle.addEventListener('click', e => {
 
 // Logout
 btnLogout.addEventListener('click', e => {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(function () {
         console.log('Signed Out');
-    }, function(error) {
+    }, function (error) {
         console.error('Sign Out Error', error);
     });
     modalLogin.style.display = 'block';
@@ -238,4 +229,95 @@ btnLogout.addEventListener('click', e => {
     txtEmail_SI.value = "";
     // txtEmail.focus();
     txtPassword_SI.value = "";
+});
+$(document).ready(function () {
+    //Form validations
+    $('#signUpFormForm').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minLength: 5
+            },
+            confirm_password: {
+                required: true,
+                minLength: 5,
+                equalTo: '#password'
+            }
+        },
+        messages: {
+            email: {
+                required: "Syötä sähköpostiosoite",
+                email: "virheellinen sähköpostiosoite."
+            },
+            password: {
+                required: "syötä salasana",
+                minLength: "salasanan tulee olla 5 merkkiä pitkä."
+            },
+            confirm_password: {
+                required: "Syötä salasana uudelleen",
+                minLength: "Salasanan tulee olla 5 merkkiä pitkä.",
+                equalTo: "Varmista, että salasana on sama kuin edellinen."
+            }
+        }
+    });
+    $('#loginFormForm').validate({
+       rules: {
+           email: {
+               required: true,
+               email: true
+           },
+           password: {
+               required: true,
+               minLength: 5
+           }
+       },
+        messages: {
+            email: {
+                required: "Syötä sähköpostiosoite",
+                email: "virheellinen sähköpostiosoite."
+            },
+            password: {
+                required: "syötä salasana",
+                minLength: "salasanan tulee olla 5 merkkiä pitkä."
+            }
+        }
+    });
+    $('#addListMenuForm').validate({
+        rules: {
+            txtListName: {
+                required: true
+            }
+        },
+        messages: {
+            txtListName: {
+                required: "Anna listalle nimi."
+            }
+        },
+        submitHandler: function (form) {
+            let listName = $('#txtListName').val();
+            let userId = getUserId();
+            $('txtListName').validate();
+            addList(userId, listName);
+            setUserLists(getUserId());
+            closeAddList();
+        }
+    });
+    $('#shareListMenuForm').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            }
+        },
+        submitHandler: function (form) {
+            let email = $('#txtShareToEmail').val();
+            $('#txtShareToEmail').val("");
+            addReferenceToUserLists(email, listId);
+            closeShareListMenu();
+        }
+    });
 });
