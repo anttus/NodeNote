@@ -173,8 +173,8 @@ function addShareButtonBehavior(listId) {
             submitHandler: function (form) {
                 let email = $('#txtShareToEmail').val();
                 $('#txtShareToEmail').val("");
-                // addReferenceToUserLists(email, listId);
-                console.log("sharing list: " + listId + " to: " + email);
+                addReferenceToUserLists(email, listId);
+                // console.log("sharing list: " + listId + " to: " + email);
                 closeShareListMenu();
             }
         });
