@@ -164,6 +164,7 @@ function addShareButtonBehavior(listId) {
         $('#shareListMenuForm' + listId).append('<input type="email" name="email" id="txtShareToEmail" placeholder="kaveri@osoite.com"/>');
         $('#shareListMenuForm' + listId).append('<button id="btnShareList' + listId + '" type="submit" name="Submit" class="submit">Jaa Lista</button>');
         $('#shareListMenu').show();
+        $('#txtShareToEmail').focus();
         //Validates the shared form list.
         $('#shareListMenuForm' + listId).validate({
             rules: {

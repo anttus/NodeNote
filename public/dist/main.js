@@ -70,6 +70,7 @@ $('#btnNewList').click(event => {
     $('#mainBody').hide();
     $(document.body).css("background-color", "#333333");
     $('#addListMenu').show();
+    $('#txtListName').focus();
 });
 
 $('#btnCloseAddList').click(event => {
