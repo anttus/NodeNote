@@ -21,9 +21,13 @@ module.exports = function(app) {
     .put(controller.create_list);
 
 
-    // PUT /api/lists/user?email=EMAIL&listId=LIST_ID
+    // PUT /api/lists/users?email=EMAIL&listId=LIST_ID
     app.route('/api/lists/users')
     .put(controller.create_list_ref_to_userlists);
+
+    // GET /api/lists/users/shared?listId=LIST_ID
+    app.route('/api/lists/users/shared')
+    .get(controller.get_shared_users);
 
     // GET /api/lists/LIST_ID
     // DELETE /api/lists/LIST_ID

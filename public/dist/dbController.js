@@ -46,6 +46,13 @@ function getListsOfUser(userId) {
     });
 }
 
+function getSharedToUsers(listId) {
+    let url = urlStart + 'api/lists/users/shared?listId=' + listId;
+    return $.get(url, function(data) {
+        return data;
+    });
+}
+
 // function getListById(listId) {
 //     let url = urlStart + 'api/lists/' + listId;
 //     return $.get(url, function(data) {

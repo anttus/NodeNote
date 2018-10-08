@@ -16,8 +16,9 @@ By @anttus & @mkotkav
 Lists:<br/>
 - Get list by id: <br/> GET /api/lists/LIST_ID
 - Get user by id: <br/> GET /api/lists?userId=USER_ID
+- Get users in the list: <br/> GET /api/lists/users/shared?listId=LIST_ID
 - Insert list:  <br/> PUT /api/lists?userId=USER_ID&listName=LIST_§NAME
-- Insert user: <br/> PUT /api/lists/user?email=EMAIL&listId=LIST_ID
+- Insert user: <br/> PUT /api/lists/users?email=EMAIL&listId=LIST_ID
 - Update list name: <br/> PATCH /api/lists?listId=LIST_ID&newName=NEW_NAME
 - Remove list: <br/> DELETE /api/lists/LIST_ID
 
