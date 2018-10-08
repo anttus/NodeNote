@@ -59,14 +59,14 @@ function addList(userId, listName) {
         url: url,
         type: 'PUT',
         success: function(result) {
-            console.log("list " + listName + " added");
-        },
-        complete: function (data) {
-            let promise = Promise.resolve(setUserLists(userId));
-            promise.then(data => {
-                console.log(data);
-            });
+            // console.log("list " + listName + " added");
         }
+    }).then(function() {
+        setUserLists(userId);
+        let promise = Promise.resolve(setUserLists(userId));
+        promise.then(data => {
+            console.log("list " + listName + " added");
+        });
     });
 }
 
