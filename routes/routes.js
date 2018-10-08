@@ -12,7 +12,7 @@ module.exports = function(app) {
         users: { 'rest.api': 'supersecret123' }
     }));
 
-    // GET /api/lists?ownerId=OWNER_ID
+    // GET /api/lists?userId=USER_ID
     // PATCH /api/lists?listId=LIST_ID&newName=NEW_NAME
     // PUT /api/lists?userId=USER_ID&listName=LIST_NAME
     app.route('/api/lists')
