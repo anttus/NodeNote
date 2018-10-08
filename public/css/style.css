@@ -38,7 +38,11 @@ input[type="text"] {
     border-radius: 0px;
     border: 1px solid black;
 }
-
+#noListsHeader{
+    font-size: 4em;
+    color: #cccccc;
+    align-items: center;
+}
 .lists button {
     width: 3em;
     height: 100%;
