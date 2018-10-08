@@ -67,8 +67,7 @@ input[type="text"] {
     height: 100%;
     margin-top: 0px;
     margin-bottom: 0px;
-    font-size: 1.15em;
-    font-weight: bold;
+    font-size: 1em;
     color: #333333;
 }
 .ui-state-default {
@@ -97,7 +96,7 @@ input[type="text"] {
 .navbar-collapse {
     width: 10em;
 }
-#menuItems {
+#sideBar {
     position: fixed;
     right: 0px;
     top: 4em;
@@ -109,9 +108,19 @@ input[type="text"] {
     min-width: 320px;
     padding: 10px;
 }
-#menuItems button {
+#sideBar button {
     width: 100%;
     text-align: left;
+}
+
+#btnLogout {
+    position: fixed;
+    bottom: 0px;
+}
+
+#btnLogout i {
+    width: 4em;
+    height: 4em;
 }
 
 #accountItems {

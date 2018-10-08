@@ -20,7 +20,7 @@ function generateItem(name, itemId, status) {
         + itemId
         + '">'
         + '<div class="checkbox">'
-        + '<button class="far fa-square" id="checkBox' + itemId + '" value="todo"></button>'
+        + '<button class="fa fa-check" id="checkBox' + itemId + '" value="todo"></button>'
         + '<label id="itemName">'
         + name
         + '</label>'
@@ -42,7 +42,7 @@ function generateItem(name, itemId, status) {
 
 function sideMenuReload() {
     $('#menuItems').empty();
-    $('#menuItems').hide();
+    $('#sideBar').hide();
     $('.lists').css({opacity: 1});
 }
 
@@ -51,11 +51,11 @@ function listReload() {
 }
 
 function showHideMenu() {
-    if ($('#menuItems').css('display') === 'block') {
-        $('#menuItems').hide();
+    if ($('#sideBar').css('display') === 'block') {
+        $('#sideBar').hide();
         $('.lists').css({opacity: 1});
     } else {
-        $('#menuItems').show();
+        $('#sideBar').show();
         $('.lists').css({opacity: 0.5});
     }
 }
@@ -98,6 +98,7 @@ function closeAddList() {
     $('#addListMenu').hide();
     $('#mainBody').show();
     $(document.body).css("background-color", "#ffffff");
+    $('#txtListName').val("");
 }
 
 function closeShareListMenu() {
