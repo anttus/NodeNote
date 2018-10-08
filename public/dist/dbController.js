@@ -60,7 +60,12 @@ function addList(userId, listName) {
         type: 'PUT',
         success: function(result) {
             console.log("list " + listName + " added");
-            setUserLists(getUserId());
+        },
+        complete: function (data) {
+            let promise = Promise.resolve(setUserLists(userId));
+            promise.then(data => {
+                console.log(data);
+            });
         }
     });
 }
