@@ -54,6 +54,7 @@ function showHideMenu() {
     if ($('#sideBar').css('display') === 'block') {
         $('#sideBar').hide();
         $('.lists').css({opacity: 1});
+        $('#txtAddItem').focus();
     } else {
         $('#sideBar').show();
         $('.lists').css({opacity: 0.5});
@@ -99,6 +100,7 @@ function closeAddList() {
     $('#mainBody').show();
     $(document.body).css("background-color", "#ffffff");
     $('#txtListName').val("");
+    $('#txtAddItem').focus();
 }
 
 function closeShareListMenu() {
