@@ -150,22 +150,18 @@ exports.all_items_of_list = function(req, res, err) {
 
 // DELETE /api/lists/<LIST_ID>
 // Deletes the list and every item on it
-// Works, but needs rethinking
 exports.delete_list = function(req, res, err) {
     let listId = req.url.slice(11);
     let query1 = "DELETE FROM UserLists WHERE ListId = " + listId + ";";
     getPromise(query1, res).then(result =>  {
-        res.send(result);
         res.end();
     }).catch(err => console.log(err));
     let query2 = "DELETE FROM Lists WHERE List_id = " + listId + ";";
     getPromise(query2, res).then(result =>  {
-        res.send(result);
         res.end();
     }).catch(err => console.log(err));
     let query3 = "DELETE FROM Items WHERE List_id = " + listId + ";";
     getPromise(query3, res).then(result =>  {
-        res.send(result);
         res.end();
     }).catch(err => console.log(err));
 };
