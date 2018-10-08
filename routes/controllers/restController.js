@@ -41,28 +41,7 @@ exports.all_lists_of_user = async function(req, res, err) {
             .catch(err => reject(err))
         })
     }
-
-    // let promise = getPromise(query1, res).then(result =>  {
-    //     asyncForEach(result, async (resVal) => {
-    //         let listId = resVal['ListId'];
-    //
-    //         getPromise(query2, res).then(result =>  {
-    //             return this;
-    //         })
-    //         .catch(err => console.log(err));
-    //     }).catch(err => console.log(err));
-    // }).catch(err => console.log(err));
 };
-
-// // GET /api/lists?userId=userId
-// exports.all_lists_of_user = function(req, res, err) {
-//     let userId = req.query['userId'] || 'null';
-//     let query = "SELECT ListId FROM UserLists WHERE UserId = '" + userId + "';";
-//     getPromise(query, res).then(result =>  {
-//         if (result == null) res.send("Empty");
-//         else res.send(result);
-//     }).catch(err => console.log(err));
-// };
 
 // GET /api/lists/:id
 exports.list_by_id = function(req, res, err) {
@@ -82,16 +61,6 @@ exports.list_name_change = function(req, res, err) {
         res.send(result);
     }).catch(err => console.log(err)).catch(err => console.log(err)); // ???
 };
-
-// PUT /api/lists?userId=USER_ID&listName=LIST_NAME
-// exports.create_list = function(req, res, err) {
-//     let listName = req.query['listName'] || 'null';
-//     let userId = req.query['userId'] || 'null';
-//     let query = "INSERT INTO Lists (User_id, Name) VALUES ('" + userId + "', '" +  listName  + "');";
-//     getPromise(query, res).then(result =>  {
-//         res.send(result);
-//     }).catch(err => console.log(err));
-// };
 
 // PUT /api/lists/user?userId=USER_ID&listName=LIST_NAME
 exports.create_list = function(req, res, err) {
