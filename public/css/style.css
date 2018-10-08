@@ -76,6 +76,10 @@ input[type="text"] {
     margin: 5px;
 }
 
+#itemName {
+    margin-bottom: 12px;
+}
+
 .done {
     opacity: 0.5;
 }
