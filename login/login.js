@@ -118,6 +118,24 @@ function loadItems(listId) {
     });
 }
 
+function setSharedToUsersData(listId) {
+    let promise = Promise.resolve(getSharedToUsers(listId));
+    let resArr = [];
+    promise.then(data => {
+        for (var i in data) {
+            resArr.push(data[i][0]['email']);
+        }
+        var uniqueEmails = [];
+        $.each(resArr, function(i, el){
+            if($.inArray(el, uniqueEmails) === -1) uniqueEmails.push(el);
+        });
+        $('#shareListMenuContent').append('<p>Shared to: </p>');
+        for (var i in uniqueEmails) {
+            $('#shareListMenuContent').append('<p>' + uniqueEmails[i] + '</p>');
+        }
+    });
+}
+
 function addToDoList() {
     $('.not-done').empty();
     $('.done').empty();
@@ -182,6 +200,7 @@ function addShareButtonBehavior(listId) {
 
     $('#btnShare' + listId).click(function () {
         $('#shareListMenuContent').empty();
+        setSharedToUsersData(listId);
         //Needs rethinking, creates a form to validate for every list.
         $('#shareListMenuContent').append('<h4>Jaa lista</h4><form id="shareListMenuForm' + listId + '"></form> <button id="btnCloseShareList">Sulje</button>');
         $('#mainBody').hide();
