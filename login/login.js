@@ -118,6 +118,26 @@ function loadItems(listId) {
     });
 }
 
+function addToDoList() {
+    $('.not-done').empty();
+    $('.done').empty();
+    $('.not-done').append('<h2 id="listHeader"></h2>'+
+    '<input type="text" id="txtAddItem" class="form-control add-todo" placeholder="Lisää asia" autofocus>'+
+    '<hr><ul id="not-done-items" class="list-unstyled checkbox"></ul>');
+    $('.done').append('<h2> Tehdyt </h2>' +
+    '<ul id="done-items" class="list-unstyled checkbox"></ul>');
+
+    $('.add-todo').keyup(function (event) {
+        if (event.keyCode === 13) { // ENTER
+            let name = $('.add-todo').val();
+            $('.add-todo').val("");
+            let listId;
+            listId = $('#listHeader').attr('class');
+            addItem(listId, name);
+        }
+    });
+}
+
 function setUserLists(userId) {
     let promise = Promise.resolve(getListsOfUser(userId));
     promise.then(data => {
@@ -136,9 +156,14 @@ function setUserLists(userId) {
             addRemoveButtonBehavior(listId);
         }
         if (data.length !== 0) {
+            $('.lists').remove('#noListsHeader');
+            addToDoList();
             $('#listHeader').html(data[0][0]['Name']);
             $('#listHeader').addClass(String(data[0][0]['List_id']));
             loadItems(data[0][0]['List_id']);
+        }
+        else {
+            $('.lists').append('<h4 id="noListsHeader">Lisää lista painamalla "+"</h4>')
         }
     });
 }
