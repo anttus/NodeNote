@@ -119,27 +119,27 @@ function loadItems(listId) {
 }
 
 function setUserLists(userId) {
-    console.log(userId);
     let promise = Promise.resolve(getListsOfUser(userId));
     promise.then(data => {
-        console.log(userId);
-
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
             let listName = data[i][0]['Name'];
+            console.log(listName);
             let listId = data[i][0]['List_id'];
             $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
-                + listId
-                + '">'
-                + listName
-                + '</button><button id="btnRemoveList' + listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
+            + listId
+            + '">'
+            + listName
+            + '</button><button id="btnRemoveList' + listId + '" style="width:25%" class="fa fa-trash-alt"></button></div>');
             addListClickedInMenuBehavior(listId, listName);
             addShareButtonBehavior(listId);
             addRemoveButtonBehavior(listId);
         }
-        $('#listHeader').html(data[0][0]['Name']);
-        $('#listHeader').addClass(String(data[0][0]['List_id']));
-        loadItems(data[0][0]['List_id']);
+        if (data.length !== 0) {
+            $('#listHeader').html(data[0][0]['Name']);
+            $('#listHeader').addClass(String(data[0][0]['List_id']));
+            loadItems(data[0][0]['List_id']);
+        }
     });
 }
 
@@ -317,7 +317,7 @@ $(document).ready(function () {
             let userId = getUserId();
             $('txtListName').validate();
             addList(userId, listName);
-            // setUserLists(getUserId());
+            // setUserLists(userId);
             closeAddList();
         }
     });

@@ -77,7 +77,6 @@ exports.create_list = function(req, res, err) {
             getPromise(query3, res).then(result =>  {
                 console.log(result);
             }).catch(err => console.log(err));
-            res.send(result);
             res.end();
         }).catch(err => console.log(err));
     }).catch(err => console.log(err));
@@ -121,17 +120,20 @@ exports.all_items_of_list = function(req, res, err) {
 // Deletes the list and every item on it
 exports.delete_list = function(req, res, err) {
     let listId = req.url.slice(11);
-    let query1 = "DELETE FROM UserLists WHERE ListId = " + listId + ";";
-    getPromise(query1, res).then(result =>  {
-        res.end();
-    }).catch(err => console.log(err));
     let query2 = "DELETE FROM Lists WHERE List_id = " + listId + ";";
     getPromise(query2, res).then(result =>  {
         res.end();
+        // res.send(result);
+    }).catch(err => console.log(err));
+    let query1 = "DELETE FROM UserLists WHERE ListId = " + listId + ";";
+    getPromise(query1, res).then(result =>  {
+        res.end();
+        // res.send(result);
     }).catch(err => console.log(err));
     let query3 = "DELETE FROM Items WHERE List_id = " + listId + ";";
     getPromise(query3, res).then(result =>  {
         res.end();
+        // res.send(result);
     }).catch(err => console.log(err));
 };
 
