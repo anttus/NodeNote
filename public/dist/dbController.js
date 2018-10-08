@@ -60,6 +60,7 @@ function addList(userId, listName) {
         type: 'PUT',
         success: function(result) {
             console.log("list " + listName + " added");
+            setUserLists(getUserId());
         }
     });
 }
@@ -93,6 +94,7 @@ function deleteList(listId) {
         type: 'DELETE',
         success: function(result) {
             console.log("list " + listId + " deleted");
+            setUserLists(getUserId());
         }
     });
 }

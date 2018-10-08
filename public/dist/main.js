@@ -100,16 +100,14 @@ function closeAddList() {
     $(document.body).css("background-color", "#ffffff");
 }
 
-$('#btnCloseShareList').click(event => {
-    closeShareListMenu();
-});
-
 function closeShareListMenu() {
     $('#shareListMenu').hide();
     $('#mainBody').show();
     $(document.body).css("background-color", "#ffffff");
     $('#shareListMenuForm').empty();
+    showHideMenu();
 }
+
 
 $(document).ready(function () {
 

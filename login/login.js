@@ -119,8 +119,11 @@ function loadItems(listId) {
 }
 
 function setUserLists(userId) {
+    console.log(userId);
     let promise = Promise.resolve(getListsOfUser(userId));
     promise.then(data => {
+        console.log(userId);
+
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
             let listName = data[i][0]['Name'];
@@ -178,14 +181,18 @@ function addShareButtonBehavior(listId) {
                 closeShareListMenu();
             }
         });
+
+        $('#btnCloseShareList').click(event => {
+            closeShareListMenu();
+        });
     });
 }
 
 function addRemoveButtonBehavior(listId) {
     $('#btnRemoveList' + listId).click(function () {
         deleteList(listId);
-        $('#menuItems').remove('#listItem' + listId);
-        setUserLists(getUserId());
+        //$('#menuItems').remove('#listItem' + listId);
+        // setUserLists(getUserId());
     });
 }
 
@@ -250,11 +257,11 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minLength: 5
+                // minLength: 5
             },
             confirm_password: {
                 required: true,
-                minLength: 5,
+                // minLength: 5,
                 equalTo: '#password'
             }
         },
@@ -265,11 +272,11 @@ $(document).ready(function () {
             },
             password: {
                 required: "syötä salasana",
-                minLength: "salasanan tulee olla 5 merkkiä pitkä."
+                // minLength: "salasanan tulee olla 5 merkkiä pitkä."
             },
             confirm_password: {
                 required: "Syötä salasana uudelleen",
-                minLength: "Salasanan tulee olla 5 merkkiä pitkä.",
+                // minLength: "Salasanan tulee olla 5 merkkiä pitkä.",
                 equalTo: "Varmista, että salasana on sama kuin edellinen."
             }
         }
@@ -282,7 +289,6 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minLength: 5
             }
         },
         messages: {
@@ -292,7 +298,6 @@ $(document).ready(function () {
             },
             password: {
                 required: "syötä salasana",
-                minLength: "salasanan tulee olla 5 merkkiä pitkä."
             }
         }
     });
@@ -312,7 +317,7 @@ $(document).ready(function () {
             let userId = getUserId();
             $('txtListName').validate();
             addList(userId, listName);
-            setUserLists(getUserId());
+            // setUserLists(getUserId());
             closeAddList();
         }
     });

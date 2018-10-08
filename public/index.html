@@ -41,12 +41,13 @@
             <form id="signUpFormForm">
                 <input type="email" name="email" id="txtEmail_SU" placeholder="Syötä sähköposti"/><br>
                 <label><b>Salasana </b></label>
-                <input type="password" id="txtVerifyPassword password" placeholder="Syötä salasana"
+                <input type="password" id="txtVerifyPassword" placeholder="Syötä salasana"
                        name="password"/><br>
                 <label><b>Varmista salasana</b></label>
-                <input type="password" id="txtPassword_SU confirm_password" name="confirm_password"
+                <input type="password" id="txtPassword_SU" name="confirm_password"
                        placeholder="Syötä salasana uudelleen"/><br>
-                <label><b>Käyttäjänimi </b></label>
+                <button id="btnSignUp" type="submit" name="Submit" class="submit"><i class="fa fa-sign-in-alt" aria-hidden="true"></i>
+                Rekisteröidy</button>
             </form>
         </div>
 
@@ -56,15 +57,12 @@
                 <label><b>Sähköposti </b></label>
                 <input type="email" name="email" id="txtEmail_SI" placeholder="Syötä sähköposti"><br>
                 <label><b>Salasana </b></label>
-                <input type="password" id="txtPassword_SI password" name="password" placeholder="Syötä salasana"><br>
+                <input type="password" id="txtPassword_SI" name="password" placeholder="Syötä salasana"><br>
+                <button id="btnSignIn"type="submit" name="Submit" class="submit"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Kirjaudu</button>
             </form>
         </div>
 
         <div id="buttonForm">
-            <button id="btnSignIn"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Kirjaudu</button>
-            <button id="btnSignUp" style="display: none"><i class="fa fa-sign-in-alt" aria-hidden="true"></i>
-                Rekisteröidy
-            </button>
             <button id="btnGoogle"><i class="fab fa-google" aria-hidden="true" style="font-size:22px;"></i> Google
             </button>
         </div>
