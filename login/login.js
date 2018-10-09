@@ -148,13 +148,25 @@ function addToDoList() {
     '<ul id="done-items" class="list-unstyled checkbox"></ul>');
 
     $('.add-todo').keyup(function (event) {
-        if (event.keyCode === 13 && $('#mainBody').css('display') !== 'block') { // ENTER
+        if (event.keyCode === 13) { // ENTER
             let name = $('.add-todo').val();
-            $('.add-todo').val("");
-            let listId;
-            listId = $('#listHeader').attr('class');
-            addItem(listId, name);
+            if(name.length !== 0) {
+                $('.add-todo').val("");
+                let listId;
+                listId = $('#listHeader').attr('class');
+                addItem(listId, name);
+            } else alert("Anna asialle nimi");
         }
+    });
+
+
+    $('#txtAddItem').focusout(() => {
+        console.log("lost focus");
+    });
+
+    $('#txtAddItem').focusin(() => {
+        console.log("gained focus");
+
     });
 }
 
@@ -294,6 +306,7 @@ btnLogout.addEventListener('click', e => {
     // txtEmail.focus();
     txtPassword_SI.value = "";
 });
+
 $(document).ready(function () {
     //Normal form validations.
     $('#signUpFormForm').validate({
@@ -368,5 +381,4 @@ $(document).ready(function () {
             closeAddList();
         }
     });
-
 });

@@ -67,6 +67,7 @@ $('#btnMenu').click(event => {
 });
 
 $('#btnNewList').click(event => {
+    $('#txtAddItem').blur();
     $('#mainBody').hide();
     $(document.body).css("background-color", "#333333");
     $('#addListMenu').show();
@@ -98,7 +99,7 @@ $('#btnCloseAddList').click(event => {
 
 function closeAddList() {
     $('#addListMenu').hide();
-    $('#mainBody').show();
+    showMainBody();
     $(document.body).css("background-color", "#ffffff");
     $('#txtListName').val("");
     $('#txtAddItem').focus();
@@ -106,11 +107,17 @@ function closeAddList() {
 
 function closeShareListMenu() {
     $('#shareListMenu').hide();
-    $('#mainBody').show();
+    showMainBody();
     $(document.body).css("background-color", "#ffffff");
     $('#shareListMenuForm').empty();
     showHideMenu();
 }
+
+function showMainBody() {
+    $('#mainBody').show(() => {$('#txtAddItem').focus();});
+}
+
+
 
 
 $(document).ready(function () {
