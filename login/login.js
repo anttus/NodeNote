@@ -129,9 +129,11 @@ function setSharedToUsersData(listId) {
         $.each(resArr, function(i, el){
             if($.inArray(el, uniqueEmails) === -1) uniqueEmails.push(el);
         });
-        $('#shareListMenuContent').append('<p>Shared to: </p>');
-        for (var i in uniqueEmails) {
-            $('#shareListMenuContent').append('<p>' + uniqueEmails[i] + '</p>');
+        if (uniqueEmails.length > 1) {
+            $('#shareListMenuContent').append('<p>Jaettu: </p>');
+            for (var i in uniqueEmails) {
+                $('#shareListMenuContent').append('<p>' + uniqueEmails[i] + '</p>');
+            }
         }
     });
 }
