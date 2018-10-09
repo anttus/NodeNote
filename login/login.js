@@ -148,7 +148,7 @@ function addToDoList() {
     '<ul id="done-items" class="list-unstyled checkbox"></ul>');
 
     $('.add-todo').keyup(function (event) {
-        if (event.keyCode === 13) { // ENTER
+        if (event.keyCode === 13 && $('#mainBody').css('display') !== 'block') { // ENTER
             let name = $('.add-todo').val();
             $('.add-todo').val("");
             let listId;
