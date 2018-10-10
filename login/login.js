@@ -158,16 +158,6 @@ function addToDoList() {
             }
         }
     });
-
-
-    $('#txtAddItem').focusout(() => {
-        console.log("lost focus");
-    });
-
-    $('#txtAddItem').focusin(() => {
-        console.log("gained focus");
-
-    });
 }
 
 function setUserLists(userId) {
@@ -176,7 +166,6 @@ function setUserLists(userId) {
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
             let listName = data[i][0]['Name'];
-            console.log(listName);
             let listId = data[i][0]['List_id'];
             $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
             + listId
@@ -236,7 +225,6 @@ function addShareButtonBehavior(listId) {
                 let email = $('#txtShareToEmail').val();
                 $('#txtShareToEmail').val("");
                 addReferenceToUserLists(email, listId);
-                // console.log("sharing list: " + listId + " to: " + email);
                 closeShareListMenu();
             }
         });
@@ -277,7 +265,7 @@ btnGoogle.addEventListener('click', e => {
 
     firebase.auth().getRedirectResult().then(function (result) {
         let user = result.user;
-        console.log(user);
+        // console.log(user);
 
     }).catch(function (error) {
         // Handle Errors here.

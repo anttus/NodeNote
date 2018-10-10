@@ -53,20 +53,13 @@ function getSharedToUsers(listId) {
     });
 }
 
-// function getListById(listId) {
-//     let url = urlStart + 'api/lists/' + listId;
-//     return $.get(url, function(data) {
-//         return data;
-//     });
-// }
-
 function addList(userId, listName) {
     let url = urlStart + 'api/lists?userId=' + userId + '&listName=' + listName;
     $.ajax({
         url: url,
         type: 'PUT',
         success: function(result) {
-            // console.log("list " + listName + " added");
+            console.log("list " + listName + " added");
         }
     }).then(function() {
         setUserLists(userId);
