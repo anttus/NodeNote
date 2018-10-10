@@ -249,9 +249,8 @@ function addShareButtonBehavior(listId) {
 
 function addRemoveButtonBehavior(listId) {
     $('#btnRemoveList' + listId).click(function () {
-        deleteList(listId);
-        //$('#menuItems').remove('#listItem' + listId);
-        // setUserLists(getUserId());
+        let c = confirm("Haluatko varmasti poistaa listan?");
+        if (c) deleteList(listId);
     });
 }
 
