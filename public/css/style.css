@@ -34,6 +34,11 @@ body {
     text-decoration: none;
     color: #ffffff;
 }
+
+.navbar-header a {
+    font-family: 'Slabo 27px', serif;
+    font-size: 2em;
+}
 input[type="text"] {
     border-radius: 0px;
     border: 1px solid black;
@@ -43,6 +48,7 @@ input[type="text"] {
     color: #cccccc;
     align-items: center;
 }
+
 .lists button {
     width: 3em;
     height: 100%;

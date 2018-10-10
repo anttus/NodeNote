@@ -16,6 +16,10 @@
     font-size: 30px;
     text-align: center;
 }
+.modal-login {
+    width: 90%;
+    margin: 5% auto 0 auto;
+}
 
 input[type=text], input[type=password], input[type=email] {
     width: 100%;
@@ -113,7 +117,8 @@ span.psw {
     font-family: 'Open Sans', sans-serif;
     background-color: #fefefe;
     margin: 5% auto 0 auto; /* 5% from the top, 15% from the bottom and centered */
-    width: 500px;
+    max-width: 500px !important;
+    min-width: 300px !important;
     border-radius: 0px;
     padding-bottom: 20px;
 }
