@@ -32,7 +32,7 @@ body {
 }
 .navbar:hover a, .navbar a, .navbar:link a, .navbar:visited a {
     text-decoration: none;
-    color: #cccccc;
+    color: #ffffff;
 }
 input[type="text"] {
     border-radius: 0px;
@@ -87,7 +87,13 @@ input[type="text"] {
 }
 
 .done {
+    margin-top: 10px;
     opacity: 0.5;
+}
+#doneHeader {
+    opacity: 1;
+    color: black;
+    font-size: 1.5em;
 }
 
 #btnMenu {
@@ -116,16 +122,24 @@ input[type="text"] {
     z-index: 100;
     max-width: 500px;
     min-width: 320px;
-    padding: 10px;
+    /* padding: 10px; */
+    overflow: scroll;
 }
 #sideBar button {
     width: 100%;
     text-align: left;
 }
 
+#menuItems {
+    margin-bottom: 100px;
+}
+
 #btnLogout {
     position: fixed;
     bottom: 0px;
+    /* border-top: 2px solid white; */
+    background-color: #ff6961;
+    width:100%;
 }
 
 #btnLogout i {

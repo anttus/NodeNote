@@ -144,18 +144,18 @@ function addToDoList() {
     $('.not-done').append('<h2 id="listHeader"></h2>'+
     '<input type="text" id="txtAddItem" class="form-control add-todo" placeholder="Lisää asia" autofocus>'+
     '<hr><ul id="not-done-items" class="list-unstyled checkbox"></ul>');
-    $('.done').append('<h2> Tehdyt </h2>' +
+    $('.done').append('<h2 id="doneHeader"> Tehdyt </h2>' +
     '<ul id="done-items" class="list-unstyled checkbox"></ul>');
 
     $('.add-todo').keyup(function (event) {
         if (event.keyCode === 13) { // ENTER
             let name = $('.add-todo').val();
-            if(name.length !== 0) {
+            if(name.length != "") {
                 $('.add-todo').val("");
                 let listId;
                 listId = $('#listHeader').attr('class');
                 addItem(listId, name);
-            } else alert("Anna asialle nimi");
+            }
         }
     });
 
