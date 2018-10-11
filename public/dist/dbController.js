@@ -62,7 +62,6 @@ function addList(userId, listName) {
             console.log("list " + listName + " added");
         }
     }).then(function() {
-        setUserLists(userId);
         let promise = Promise.resolve(setUserLists(userId));
         promise.then(data => {
             console.log("list " + listName + " added");
