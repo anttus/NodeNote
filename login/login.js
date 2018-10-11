@@ -123,7 +123,7 @@ function setSharedToUsersData(listId) {
     let resArr = [];
     promise.then(data => {
         for (var i in data) {
-            resArr.push(data[i][0]['email']);
+            resArr.push(data[i]['email'].substring(0, data[i]['email'].indexOf('@')));
         }
         var uniqueEmails = [];
         $.each(resArr, function(i, el){
@@ -165,8 +165,8 @@ function setUserLists(userId) {
     promise.then(data => {
         sideMenuReload();
         for (var i = 0; i < data.length; i++) {
-            let listName = data[i][0]['Name'];
-            let listId = data[i][0]['List_id'];
+            let listName = data[i]['Name'];
+            let listId = data[i]['List_id'];
             $('#menuItems').append('<div id="listItem' + listId + '"><button id="btnShare' + listId + '" style="width:25%" class="fa fa-share-alt"</button><button style="width:50%" id="menuListItem'
             + listId
             + '">'
@@ -179,9 +179,9 @@ function setUserLists(userId) {
         if (data.length !== 0) {
             $('.lists').remove('#noListsHeader');
             addToDoList();
-            $('#listHeader').html(data[0][0]['Name']);
-            $('#listHeader').addClass(String(data[0][0]['List_id']));
-            loadItems(data[0][0]['List_id']);
+            $('#listHeader').html(data[0]['Name']);
+            $('#listHeader').addClass(String(data[0]['List_id']));
+            loadItems(data[0]['List_id']);
         }
         else {
             $('.lists').append('<h4 id="noListsHeader">Lisää lista painamalla "+"</h4>')

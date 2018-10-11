@@ -25,18 +25,10 @@ async function asyncForEach(array, callback) {
 //  GET /api/lists?userId=userId
 exports.all_lists_of_user = async function(req, res, err) {
     let userId = req.query['userId'] || 'null';
-    let result = await pool.query("SELECT ListId FROM UserLists WHERE UserId = '" + userId + "';");
-    var resultArr = [];
-    Promise.all([fetchLists(resultArr)]).then(() => res.send(resultArr)).catch(err => console.log(err));
-    async function fetchLists(resultArr) {
-        return new Promise((resolve, reject) => {
-            asyncForEach(result, async (resVal) => {
-                let listId = resVal['ListId'];
-                let queryRes = await pool.query("SELECT * FROM Lists WHERE List_id = '" + listId + "';");
-                resultArr.push(queryRes);
-            }).then(data => resolve([resultArr])).catch(err => reject(err))
-        })
-    }
+    let query = "SELECT * FROM Lists WHERE List_id IN (SELECT ListId FROM UserLists WHERE UserId = '" + userId + "');";
+    getPromise(query, res).then(result => {
+        res.send(result);
+    }).catch(err => console.log(err));
 };
 
 // GET /api/lists/:id
@@ -66,14 +58,9 @@ exports.create_list = function(req, res, err) {
     getPromise(query1, res).then(result => {
         res.send(result);
         res.end();
-        let query2 = "SELECT List_id FROM Lists WHERE User_id = '" + userId + "' AND Name = '" + listName + "';";
-        getPromise(query2, res).then(result => {
-            let listId = result[0]['List_id'];
-            let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listId + ");";
-            getPromise(query3, res).then(result => {
-                console.log(result);
-            }).catch(err => console.log(err));
-            res.end();
+        let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', (SELECT List_id FROM Lists WHERE User_id = '" + userId + "' AND Name = '" + listName + "'));";
+        getPromise(query3, res).then(result => {
+            console.log(result);
         }).catch(err => console.log(err));
     }).catch(err => console.log(err));
 };
@@ -82,35 +69,19 @@ exports.create_list = function(req, res, err) {
 exports.create_list_ref_to_userlists = function(req, res, err) {
     let email = req.query['email'] || 'null';
     let listIdOrig = req.query['listId'] || 'null';
-    let query1 = "SELECT User_id FROM Users WHERE email = '" + email + "';";
-    getPromise(query1, res).then(result => {
-        let userId = result[0]['User_id'];
-        let query2 = "SELECT List_id FROM Lists WHERE List_id = '" + listIdOrig + "';";
-        getPromise(query2, res).then(result => {
-            let listId = result[0]['List_id'];
-            let query3 = "INSERT INTO UserLists (UserId, ListId) VALUES ('" + userId + "', " + listIdOrig + ");";
-            getPromise(query3, res).then(result => {
-                res.send(result);
-            });
-        }).catch(err => console.log(err));
+    let query = "INSERT INTO UserLists (UserId, ListId) VALUES ((SELECT User_id FROM Users WHERE email = '" + email + "'), (SELECT List_id FROM Lists WHERE List_id = '" + listIdOrig + "'));"
+    getPromise(query, res).then(result => {
+        res.send(result);
     }).catch(err => console.log(err));
 };
 
 // GET /api/lists/users/shared?listId=LIST_ID
-exports.get_shared_users = async function(req, res, err) {
+exports.get_shared_users = function(req, res, err) {
     let listId = req.query['listId'] || 'null';
-    let query1 = await pool.query("SELECT UserId FROM UserLists WHERE ListId = " + listId + ";");
-    var resultArr = [];
-    Promise.all([fetchLists(resultArr)]).then(() => res.send(resultArr)).catch(err => console.log(err));
-    async function fetchLists(resultArr) {
-        return new Promise((resolve, reject) => {
-            asyncForEach(query1, async (resVal) => {
-                let userId = resVal['UserId'];
-                let query2 = await pool.query("SELECT email FROM Users WHERE User_id = '" + userId + "';");
-                resultArr.push(query2);
-            }).then(data => resolve([resultArr])).catch(err => reject(err))
-        })
-    }
+    let query = "SELECT email FROM Users WHERE User_id IN (SELECT UserId FROM UserLists WHERE ListId = '" + listId + "');";
+    getPromise(query, res).then(result => {
+        res.send(result);
+    }).catch(err => console.log(err));
 };
 
 // GET /api/items?listId=listId
@@ -119,11 +90,11 @@ exports.all_items_of_list = function(req, res, err) {
     let query = "SELECT * FROM Items WHERE List_id = " + listId + ";";
     getPromise(query, res).then(result => {
         if (result == null)
-            res.send("Empty");
+        res.send("Empty");
         else
-            res.send(result);
-        }
-    ).catch(err => console.log(err));
+        res.send(result);
+    }
+).catch(err => console.log(err));
 };
 
 // DELETE /api/lists/<LIST_ID>
