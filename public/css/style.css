@@ -133,7 +133,7 @@ input[type="text"] {
 }
 #sideBar button {
     width: 100%;
-    text-align: left;
+    text-align: center;
 }
 
 #menuItems {
@@ -143,14 +143,14 @@ input[type="text"] {
 #btnLogout {
     position: fixed;
     bottom: 0px;
-    /* border-top: 2px solid white; */
+    text-align: left !important;
     background-color: #ff6961;
     width:100%;
 }
 
 #btnLogout i {
     width: 4em;
-    height: 4em;
+    /* height: 4em; */
 }
 
 #accountItems {
