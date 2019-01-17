@@ -43,7 +43,7 @@ function generateItem(name, itemId, status) {
 function sideMenuReload() {
     $('#menuItems').empty();
     $('#sideBar').hide();
-    $('.lists').css({opacity: 1});
+    $('.lists').css({ opacity: 1 });
 }
 
 function listReload() {
@@ -53,17 +53,16 @@ function listReload() {
 function showHideMenu() {
     if ($('#sideBar').css('display') === 'block') {
         $('#sideBar').hide();
-        $('.lists').css({opacity: 1});
+        $('.lists').css({ opacity: 1 });
         $('#txtAddItem').focus();
     } else {
         $('#sideBar').show();
-        $('.lists').css({opacity: 0.5});
+        $('.lists').css({ opacity: 0.5 });
     }
 }
 
 $('#btnMenu').click(event => {
     showHideMenu();
-
 });
 
 $('#btnNewList').click(event => {
@@ -77,25 +76,6 @@ $('#btnNewList').click(event => {
 $('#btnCloseAddList').click(event => {
     closeAddList();
 });
-
-// $('#txtListName').keyup(function (event) {
-//     if(event.keyCode === 13) {
-//         addNewList();
-//     }
-// });
-
-// $('#btnAddList').click(event => {
-//     addNewList();
-// });
-//
-// function addNewList() {
-//     let listName = $('#txtListName').val();
-//     let userId = getUserId();
-//     $('txtListName').validate();
-//     addList(userId, listName);
-//     setUserLists(getUserId());
-//     closeAddList();
-// }
 
 function closeAddList() {
     $('#addListMenu').hide();
@@ -114,12 +94,5 @@ function closeShareListMenu() {
 }
 
 function showMainBody() {
-    $('#mainBody').show(() => {$('#txtAddItem').focus();});
+    $('#mainBody').show(() => { $('#txtAddItem').focus(); });
 }
-
-
-
-
-$(document).ready(function () {
-
-});

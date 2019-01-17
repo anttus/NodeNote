@@ -21,9 +21,6 @@ function addUser(userId, email) {
     $.ajax({
         url: url,
         type: 'PUT',
-        success: function(result) {
-            console.log("user " + userId + " added");
-        }
     });
 }
 
@@ -32,9 +29,6 @@ function deleteUser(userId) {
     $.ajax({
         url: url,
         type: 'DELETE',
-        success: function(result) {
-            console.log("user " + userId + " deleted");
-        }
     });
 }
 
@@ -58,13 +52,9 @@ function addList(userId, listName) {
     $.ajax({
         url: url,
         type: 'PUT',
-        success: function(result) {
-            console.log("list " + listName + " added");
-        }
     }).then(function() {
         let promise = Promise.resolve(setUserLists(userId));
         promise.then(data => {
-            console.log("list " + listName + " added");
         });
     });
 }
@@ -74,9 +64,6 @@ function addReferenceToUserLists(email, listId) {
     $.ajax({
         url: url,
         type: 'PUT',
-        success: function(result) {
-            console.log("reference added to UserLists for " + email + " and " + listId);
-        }
     });
 }
 
@@ -85,9 +72,6 @@ function editListName(listId, newName) {
     $.ajax({
         url: url,
         type: 'PATCH',
-        success: function(result) {
-            console.log("List name changed to " + newName);
-        }
     });
 }
 
@@ -97,7 +81,6 @@ function deleteList(listId) {
         url: url,
         type: 'DELETE',
         success: function(result) {
-            console.log("list " + listId + " deleted");
             setUserLists(getUserId());
         }
     });
@@ -118,7 +101,6 @@ function addItem(listId, itemName) {
         type: 'PUT',
         success: function(result) {
             loadItems(listId);
-            console.log("item " + itemName + " added");
         }
     });
 }
@@ -128,9 +110,6 @@ function editItemName(itemId, newName) {
     $.ajax({
         url: url,
         type: 'PATCH',
-        success: function(result) {
-            console.log("item name changed to " + newName);
-        }
     });
 }
 
@@ -140,7 +119,6 @@ function deleteItem(listId, itemId, itemName) {
         url: url,
         type: 'DELETE',
         success: function(result) {
-            console.log("item " + itemId + " deleted");
             listReload();
         }
     });
@@ -153,7 +131,6 @@ function setItemStatus(itemId, completed) {
         type: 'PATCH',
         success: function(result) {
             listReload();
-            console.log("item " + itemId + " status updated to " + completed);
         }
     });
 }
